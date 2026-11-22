@@ -9,9 +9,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=10">
+<script>try{if(!sessionStorage.getItem("vbm-intro")){document.documentElement.classList.add("intro");sessionStorage.setItem("vbm-intro","1")}}catch(e){}</script>
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body class="top-dark">
+
+<div class="curtain" aria-hidden="true"><div class="curtain-inner"><div class="curtain-mark"><img src="assets/logo.png" alt=""><span>VBM</span></div><p class="curtain-sub">Victorian Build Mart</p><i class="curtain-line"></i></div></div>
 
 <header class="nav" id="nav">
   <a class="brand" href="index.html" aria-label="Victorian Build Mart home">
@@ -46,6 +49,7 @@
         <li><a href="#tiles">Tiles</a></li>
         <li><a href="#sanitary">Sanitary Ware</a></li>
         <li><a href="#doors">Doors &amp; Windows</a></li>
+        <li><a href="#guide">Material Guide</a></li>
       </ul>
     </div>
   </section>
@@ -146,11 +150,84 @@
     </div>
   </section>
 
+  <section class="guide stone" id="guide">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow center" data-reveal>Material Guide</p>
+        <h2 class="split-words">Choosing the <em>right</em> material</h2>
+        <p class="head-sub" data-reveal>A quick reference to the sizes we stock and where they are typically used.</p>
+      </div>
+      <div class="tabs" data-tabs>
+        <div class="tab-list" role="tablist" aria-label="Material guide">
+          <button type="button" role="tab" id="t-tmt" aria-controls="g-tmt" aria-selected="true">TMT Bars</button>
+          <button type="button" role="tab" id="t-blocks" aria-controls="g-blocks" aria-selected="false">Bricks &amp; Blocks</button>
+          <button type="button" role="tab" id="t-sand" aria-controls="g-sand" aria-selected="false">Sand &amp; Jelly</button>
+        </div>
+        <div class="tab-panel" role="tabpanel" id="g-tmt" aria-labelledby="t-tmt">
+          <h3 class="panel-title">TMT Bars</h3>
+          <table class="gtable">
+            <thead><tr><th>Size</th><th>Typically used for</th></tr></thead>
+            <tbody>
+              <tr><td>8 mm</td><td>Stirrups, ties and light reinforcement</td></tr>
+              <tr><td>10 mm</td><td>Slabs, lintels and sunshades</td></tr>
+              <tr><td>12 mm</td><td>Slabs, beams and smaller columns</td></tr>
+              <tr><td>16 mm</td><td>Beams and columns</td></tr>
+              <tr><td>20 – 25 mm</td><td>Columns, footings and heavier structures</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-panel" role="tabpanel" id="g-blocks" aria-labelledby="t-blocks">
+          <h3 class="panel-title">Bricks &amp; Blocks</h3>
+          <table class="gtable">
+            <thead><tr><th>Type</th><th>Typically used for</th></tr></thead>
+            <tbody>
+              <tr><td>4″ blocks</td><td>Partition and internal walls</td></tr>
+              <tr><td>6″ blocks</td><td>Internal walls and lighter external walls</td></tr>
+              <tr><td>8″ / 9″ blocks</td><td>External and load-bearing walls</td></tr>
+              <tr><td>AAC blocks</td><td>Lighter walls with good heat insulation and faster laying</td></tr>
+              <tr><td>Wire cut red brick</td><td>Traditional brickwork, in premium and standard quality</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-panel" role="tabpanel" id="g-sand" aria-labelledby="t-sand">
+          <h3 class="panel-title">Sand &amp; Jelly</h3>
+          <table class="gtable">
+            <thead><tr><th>Material</th><th>Typically used for</th></tr></thead>
+            <tbody>
+              <tr><td>M-Sand</td><td>Concrete and block work</td></tr>
+              <tr><td>P-Sand</td><td>Finer sand for plastering</td></tr>
+              <tr><td>¾″ jelly</td><td>Reinforced concrete: slabs, beams and columns</td></tr>
+              <tr><td>1½″ jelly</td><td>Plain concrete and foundation beds</td></tr>
+              <tr><td>Filling sand</td><td>Basement and site filling</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="guide-note" data-reveal>General guidance only. Your structural engineer's drawings always come first, and we are happy to help you match them.</p>
+    </div>
+  </section>
+
+  <section class="process steel" id="ordering">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow center" data-reveal>How Ordering Works</p>
+        <h2 class="split-words">From enquiry to <em>site</em> in four steps</h2>
+      </div>
+      <ol class="psteps" data-stagger>
+        <li><span>01</span><h3>Share your list</h3><p>Call us or send the quote form with the materials and quantities you need.</p></li>
+        <li><span>02</span><h3>Receive a quote</h3><p>A competitive, transparent price with accurate weighing and no hidden charges.</p></li>
+        <li><span>03</span><h3>Confirm and schedule</h3><p>Choose a delivery date that keeps your site moving.</p></li>
+        <li><span>04</span><h3>Delivered to site</h3><p>On schedule, and free within 5 km of Potheri on orders above 3 tonnes.</p></li>
+      </ol>
+    </div>
+  </section>
+
   <section class="brands crimson">
     <div class="wrap">
       <div class="head">
         <p class="eyebrow center" data-reveal>Trusted Brands</p>
         <h2 class="split-words">We partner with the best, so your project <em>stands strong</em></h2>
+        <p class="head-sub" data-reveal>Builders, contractors, architects and homeowners across Chennai and Tamil Nadu rely on us for materials that stand strong for generations.</p>
       </div>
     </div>
     <div class="mq" aria-hidden="true">
@@ -168,6 +245,7 @@
       <h2 class="split-words">Need a price for your <em>project</em>?</h2>
       <p class="cta-sub" data-reveal>Share your list and we will come back with a competitive quote.</p>
       <a href="contact.html" class="btn btn-dark" data-reveal>Contact Us</a>
+      <p class="cta-phone" data-reveal>Or call <a href="tel:+918925681234">89256 81234</a> &nbsp;·&nbsp; <a href="tel:+919176997363">91769 97363</a></p>
     </div>
   </section>
 
@@ -187,6 +265,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="script.js?v=10"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="script.js?v=16"></script>
 </body>
 </html>

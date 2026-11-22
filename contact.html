@@ -9,9 +9,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=10">
+<script>try{if(!sessionStorage.getItem("vbm-intro")){document.documentElement.classList.add("intro");sessionStorage.setItem("vbm-intro","1")}}catch(e){}</script>
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
+
+<div class="curtain" aria-hidden="true"><div class="curtain-inner"><div class="curtain-mark"><img src="assets/logo.png" alt=""><span>VBM</span></div><p class="curtain-sub">Victorian Build Mart</p><i class="curtain-line"></i></div></div>
 
 <header class="nav" id="nav">
   <a class="brand" href="index.html" aria-label="Victorian Build Mart home">
@@ -50,6 +53,11 @@
           <div><dt>Email</dt><dd><a href="mailto:management@leonsteels.com">management@leonsteels.com</a></dd></div>
           <div><dt>Address</dt><dd>43/6, Grand Southern Trunk Rd, Potheri, Veerapathira Nagar, Thailavaram, Nandivaram-Guduvancheri, Tamil Nadu 603203</dd></div>
         </dl>
+        <div class="quick">
+          <a class="btn btn-primary" href="tel:+918925681234">Call Now</a>
+          <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=43%2F6%20Grand%20Southern%20Trunk%20Rd%2C%20Potheri%2C%20Tamil%20Nadu%20603203" target="_blank" rel="noopener">Get Directions</a>
+        </div>
+        <figure class="map imgwrap"><iframe title="Map showing Victorian Build Mart, Potheri" src="https://www.google.com/maps?q=43%2F6%20Grand%20Southern%20Trunk%20Rd%2C%20Potheri%2C%20Tamil%20Nadu%20603203&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></figure>
       </div>
       <form class="form" action="mailto:management@leonsteels.com" method="post" enctype="text/plain">
         <label>Name<input type="text" name="name" required autocomplete="name"></label>
@@ -80,6 +88,24 @@
     </div>
   </section>
 
+  <section class="faq charcoal" id="faq">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow" data-reveal>Questions</p>
+        <h2 class="split-words">Frequently <em>asked</em></h2>
+        <p class="faq-note" data-reveal>Can't find your answer? Call us on <a href="tel:+918925681234">89256 81234</a>.</p>
+      </div>
+      <div class="faq-list">
+        <details><summary>Is Victorian Build Mart the same company as Leon Steels?</summary><p>Yes. Leon Steels is now Victorian Build Mart (VBM). The team, the address and the phone numbers are the same.</p></details>
+        <details><summary>Which areas do you deliver to?</summary><p>Guduvancheri and the surrounding villages, and the stretch from Maraimalai Nagar up to Chengalpattu. The full list is in the delivery areas above.</p></details>
+        <details><summary>Is delivery free?</summary><p>Delivery is free within a 5 km radius of Potheri for orders above 3 tonnes. For other orders, ask us about delivery when you request a quote.</p></details>
+        <details><summary>Do you supply small residential orders?</summary><p>Yes. We supply everything from small home builds to large projects, and tailor each order to what the site needs.</p></details>
+        <details><summary>Which brands do you stock?</summary><p>Cement from UltraTech, Dalmia, Ramco and Chettinad; TMT bars from TATA Tiscon, ARS, Isteel, JR, MCR and Sri Durga; AAC blocks from Renecon, Ekocon and JJM; and KAG tiles.</p></details>
+        <details><summary>How do I get a quote?</summary><p>Call 89256 81234 or 91769 97363, or send the form on this page with the materials and quantities you need.</p></details>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="footer">
@@ -96,6 +122,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="script.js?v=10"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="script.js?v=16"></script>
 </body>
 </html>

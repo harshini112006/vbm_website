@@ -9,9 +9,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=10">
+<script>try{if(!sessionStorage.getItem("vbm-intro")){document.documentElement.classList.add("intro");sessionStorage.setItem("vbm-intro","1")}}catch(e){}</script>
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
+
+<div class="curtain" aria-hidden="true"><div class="curtain-inner"><div class="curtain-mark"><img src="assets/logo.png" alt=""><span>VBM</span></div><p class="curtain-sub">Victorian Build Mart</p><i class="curtain-line"></i></div></div>
 
 <header class="nav" id="nav">
   <a class="brand" href="index.html" aria-label="Victorian Build Mart home">
@@ -35,7 +38,11 @@
 
   <!-- 1. Hero -->
   <div class="hero-wrap">
-    <section class="hero charcoal">
+    <section class="hero hero-video charcoal">
+      <video class="hero-bg" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.jpg?v=2" aria-hidden="true">
+        <source src="assets/video/hero-timelapse.mp4?v=2" type="video/mp4">
+      </video>
+      <div class="hero-shade" aria-hidden="true"></div>
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Formerly Leon Steels</p>
@@ -44,20 +51,15 @@
             <span class="ln l2"><span>your build needs,</span></span>
             <span class="ln l3"><span><em>in one place.</em></span></span>
           </h1>
-          <p class="lead">From the first pour of cement to the final fitting of a door, Victorian Build Mart supplies trusted brands and dependable service to builders, contractors and homeowners across Chennai and Tamil Nadu.</p>
+          <p class="lead">Trusted brands and dependable delivery, from the first pour of cement to the final fitting.</p>
           <div class="actions">
             <a href="products.html" class="btn btn-primary">Explore Products</a>
             <a href="contact.html" class="btn btn-line">Request a Quote</a>
           </div>
-        </div>
-        <div class="hero-art">
-          <div class="arch"><img src="assets/img/hero.jpg?v=10" alt="Steel frame under construction"></div>
-          <div class="badge" aria-hidden="true">
-            <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text><textPath href="#circ" textLength="495" lengthAdjust="spacing">FORMERLY LEON STEELS • VICTORIAN BUILD MART • </textPath></text></svg>
-            <img src="assets/logo.png" alt="">
-          </div>
+          <p class="hero-meta"><span>Est. 2020</span><span>Two decades in the trade</span><span>Potheri, Guduvancheri</span></p>
         </div>
       </div>
+      <a class="scroll-cue" href="#about" aria-label="Scroll to About"><span>Scroll</span><i></i></a>
     </section>
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
@@ -70,17 +72,28 @@
   <!-- 2. About + at a glance -->
   <section class="about stone" id="about">
     <div class="wrap">
-      <div class="split">
-        <div>
+      <div class="about-top">
+        <div class="about-copy">
           <p class="eyebrow" data-reveal>About VBM</p>
           <h2 class="split-words">Two decades of trust. <em>One complete mart.</em></h2>
-          <p class="rename" data-reveal><span class="old">Leon Steels</span> <svg viewBox="0 0 60 12" aria-hidden="true"><path d="M0 6h56M50 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> <span class="new">Victorian Build Mart</span></p>
+          <div class="rename" data-rename>
+            <span class="old">Leon Steels<i class="strike" aria-hidden="true"></i></span>
+            <svg class="rename-arrow" viewBox="0 0 60 12" aria-hidden="true"><path d="M0 6h56M50 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span class="new">Victorian Build Mart</span>
+          </div>
+          <p class="about-text" data-reveal>Today, as Victorian Build Mart, everything a build needs is available in one place, from sources we have tested and partners we trust. A new name, the same team and the same promise.</p>
+          <a class="btn btn-dark" href="products.html" data-reveal>See Our Products</a>
         </div>
-        <div>
-          <p class="big" data-reveal>After more than twenty years dealing in steel and cement for building construction, our business was incorporated in October 2020 to supply premium, trusted brands of TMT bars and cement across the region.</p>
-          <p data-reveal data-delay=".1">Today, as Victorian Build Mart, everything a build needs is available in one place, from sources we have tested and partners we trust. A new name, the same team and the same promise.</p>
+        <div class="collage">
+          <figure class="c-main imgwrap"><img src="assets/img/tmt.jpg" alt="TMT steel bars" loading="lazy"></figure>
+          <figure class="c-sub imgwrap"><img src="assets/img/cement.jpg" alt="Cement bags" loading="lazy"></figure>
+          <div class="c-card"><b>2020</b><span>Incorporated, after two decades in the trade</span></div>
+          <div class="c-tag"><i></i>Potheri · Guduvancheri</div>
         </div>
       </div>
+
+      <p class="statement" data-highlight>After more than twenty years dealing in steel and cement for building construction, our business was incorporated in October 2020 to supply premium, trusted brands of TMT bars and cement across the region.</p>
+
       <div class="stats" data-stagger>
         <div class="stat s-ink"><b><span class="count" data-to="20" data-suffix="+">20+</span></b><span>Years in the trade</span></div>
         <div class="stat s-steel"><b><span class="count" data-to="7">7</span></b><span>Product categories</span></div>
@@ -88,6 +101,13 @@
         <div class="stat s-concrete"><b><span class="count" data-to="5" data-suffix=" km">5 km</span></b><span>Free delivery radius*</span></div>
       </div>
       <p class="fine" data-reveal>*On orders above 3 tonnes, around Potheri.</p>
+
+      <p class="eyebrow apart-head" data-reveal>What sets us apart</p>
+      <div class="apart" data-stagger>
+        <article><span class="k">i.</span><h3>A legacy of reliability</h3><p>Contractors, builders and homeowners trust us because we consistently deliver quality products that stand the test of time.</p></article>
+        <article><span class="k">ii.</span><h3>Built around your project</h3><p>From small residential builds to large-scale infrastructure, we tailor every supply to match what the site needs.</p></article>
+        <article><span class="k">iii.</span><h3>A comprehensive inventory</h3><p>Ready stock of high-demand materials avoids delays, so you get what you need, when you need it.</p></article>
+      </div>
     </div>
   </section>
 
@@ -156,6 +176,7 @@
       <div class="head">
         <p class="eyebrow center" data-reveal>Trusted Brands</p>
         <h2 class="split-words">We partner with the best, so your project <em>stands strong</em></h2>
+        <p class="head-sub" data-reveal>Builders, contractors, architects and homeowners across Chennai and Tamil Nadu rely on us for materials that stand strong for generations.</p>
       </div>
     </div>
     <div class="mq" aria-hidden="true">
@@ -191,6 +212,7 @@
       <h2 class="split-words">Build your vision with <em>confidence</em></h2>
       <p class="cta-sub" data-reveal>Tell us what your project needs and receive a competitive quote.</p>
       <a href="contact.html" class="btn btn-dark" data-reveal>Contact Us</a>
+      <p class="cta-phone" data-reveal>Or call <a href="tel:+918925681234">89256 81234</a> &nbsp;·&nbsp; <a href="tel:+919176997363">91769 97363</a></p>
     </div>
   </section>
 
@@ -210,6 +232,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="script.js?v=10"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="script.js?v=16"></script>
 </body>
 </html>
