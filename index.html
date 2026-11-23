@@ -8,9 +8,9 @@
 <link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 <script>try{if(!sessionStorage.getItem("vbm-intro")){document.documentElement.classList.add("intro");sessionStorage.setItem("vbm-intro","1")}}catch(e){}</script>
-<link rel="stylesheet" href="styles.css?v=24">
+<link rel="stylesheet" href="styles.css?v=35">
 </head>
 <body>
 
@@ -39,8 +39,8 @@
   <!-- 1. Hero -->
   <div class="hero-wrap">
     <section class="hero hero-video charcoal">
-      <video class="hero-bg" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.jpg?v=2" aria-hidden="true">
-        <source src="assets/video/hero-timelapse.mp4?v=2" type="video/mp4">
+      <video class="hero-bg" muted loop playsinline preload="none" poster="assets/video/hero-poster.jpg?v=2" aria-hidden="true">
+        <source data-src="assets/video/hero-timelapse.mp4?v=2" type="video/mp4">
       </video>
       <div class="hero-shade" aria-hidden="true"></div>
       <div class="wrap hero-grid">
@@ -48,7 +48,7 @@
           <p class="eyebrow">Formerly Leon Steels</p>
           <h1 class="lines" aria-label="Everything your build needs, in one place.">
             <span class="ln"><span>Everything</span></span>
-            <span class="ln l2"><span>your build needs,</span></span>
+            <span class="ln l2 l-unique"><span><span class="hollow">your</span> <span class="rotator" aria-hidden="true"><span class="rot-word is-on">build</span><span class="rot-word">home</span><span class="rot-word">project</span><span class="rot-word">site</span></span> <span class="hollow">needs,</span></span></span>
             <span class="ln l3"><span><em>in one place.</em></span></span>
           </h1>
           <p class="lead">Trusted brands and dependable delivery, from the first pour of cement to the final fitting.</p>
@@ -92,21 +92,46 @@
         </div>
       </div>
 
-      <p class="statement" data-highlight>After more than twenty years dealing in steel and cement for building construction, our business was incorporated in October 2020 to supply premium, trusted brands of TMT bars and cement across the region.</p>
+      <div class="story">
+        <div class="story-bg" aria-hidden="true">
+        </div>
+        <div class="story-rail" aria-hidden="true"><i></i></div>
+        <p class="eyebrow center" data-reveal>Our Story</p>
+        <p class="statement" data-highlight>After more than <mark>twenty years</mark> dealing in steel and cement for building construction, our business was incorporated in <mark>October 2020</mark> to supply premium, trusted brands of <mark>TMT bars and cement</mark> across the region.</p>
+        <p class="story-sign"><span></span>Victorian Build Mart &middot; formerly Leon Steels</p>
+      </div>
 
-      <div class="stats" data-stagger>
-        <div class="stat s-ink"><b><span class="count" data-to="20" data-suffix="+">20+</span></b><span>Years in the trade</span></div>
-        <div class="stat s-steel"><b><span class="count" data-to="7">7</span></b><span>Product categories</span></div>
-        <div class="stat s-red"><b><span class="count" data-to="14">14</span></b><span>Trusted brands</span></div>
-        <div class="stat s-concrete"><b><span class="count" data-to="5" data-suffix=" km">5 km</span></b><span>Free delivery radius*</span></div>
+      <div class="stats">
+        <div class="stat s-ink" data-vis="ring" role="button" tabindex="0" aria-label="20 plus years in the trade, replay animation"><svg class="stat-vis" viewBox="0 0 100 100" aria-hidden="true"><line class="tick" x1="50.0" y1="7.0" x2="50.0" y2="2.0"/><line class="tick" x1="63.3" y1="9.1" x2="64.8" y2="4.3"/><line class="tick" x1="75.3" y1="15.2" x2="78.2" y2="11.2"/><line class="tick" x1="84.8" y1="24.7" x2="88.8" y2="21.8"/><line class="tick" x1="90.9" y1="36.7" x2="95.7" y2="35.2"/><line class="tick" x1="93.0" y1="50.0" x2="98.0" y2="50.0"/><line class="tick" x1="90.9" y1="63.3" x2="95.7" y2="64.8"/><line class="tick" x1="84.8" y1="75.3" x2="88.8" y2="78.2"/><line class="tick" x1="75.3" y1="84.8" x2="78.2" y2="88.8"/><line class="tick" x1="63.3" y1="90.9" x2="64.8" y2="95.7"/><line class="tick" x1="50.0" y1="93.0" x2="50.0" y2="98.0"/><line class="tick" x1="36.7" y1="90.9" x2="35.2" y2="95.7"/><line class="tick" x1="24.7" y1="84.8" x2="21.8" y2="88.8"/><line class="tick" x1="15.2" y1="75.3" x2="11.2" y2="78.2"/><line class="tick" x1="9.1" y1="63.3" x2="4.3" y2="64.8"/><line class="tick" x1="7.0" y1="50.0" x2="2.0" y2="50.0"/><line class="tick" x1="9.1" y1="36.7" x2="4.3" y2="35.2"/><line class="tick" x1="15.2" y1="24.7" x2="11.2" y2="21.8"/><line class="tick" x1="24.7" y1="15.2" x2="21.8" y2="11.2"/><line class="tick" x1="36.7" y1="9.1" x2="35.2" y2="4.3"/><circle class="ring-bg" cx="50" cy="50" r="34"/><circle class="ring-arc" cx="50" cy="50" r="34" pathLength="1" transform="rotate(-90 50 50)"/></svg><b><span class="count" data-to="20" data-suffix="+">20+</span></b><span>Years in the trade</span></div>
+        <div class="stat s-steel" data-vis="tiles" role="button" tabindex="0" aria-label="7 product categories, replay animation"><svg class="stat-vis" viewBox="0 0 100 100" aria-hidden="true"><rect class="tile" x="8" y="24" width="18" height="18" rx="4"/><rect class="tile" x="30" y="24" width="18" height="18" rx="4"/><rect class="tile" x="52" y="24" width="18" height="18" rx="4"/><rect class="tile" x="74" y="24" width="18" height="18" rx="4"/><rect class="tile" x="19" y="50" width="18" height="18" rx="4"/><rect class="tile" x="41" y="50" width="18" height="18" rx="4"/><rect class="tile" x="63" y="50" width="18" height="18" rx="4"/></svg><b><span class="count" data-to="7">7</span></b><span>Product categories</span></div>
+        <div class="stat s-red" data-vis="orbit" role="button" tabindex="0" aria-label="14 trusted brands, replay animation"><svg class="stat-vis" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring-bg" cx="50" cy="50" r="38"/><g class="orbit-idle"><g class="orbit"><circle class="dot" cx="88.0" cy="50.0" r="3.4"/><circle class="dot" cx="84.2" cy="66.5" r="3.4"/><circle class="dot" cx="73.7" cy="79.7" r="3.4"/><circle class="dot" cx="58.5" cy="87.0" r="3.4"/><circle class="dot" cx="41.5" cy="87.0" r="3.4"/><circle class="dot" cx="26.3" cy="79.7" r="3.4"/><circle class="dot" cx="15.8" cy="66.5" r="3.4"/><circle class="dot" cx="12.0" cy="50.0" r="3.4"/><circle class="dot" cx="15.8" cy="33.5" r="3.4"/><circle class="dot" cx="26.3" cy="20.3" r="3.4"/><circle class="dot" cx="41.5" cy="13.0" r="3.4"/><circle class="dot" cx="58.5" cy="13.0" r="3.4"/><circle class="dot" cx="73.7" cy="20.3" r="3.4"/><circle class="dot" cx="84.2" cy="33.5" r="3.4"/></g></g><circle class="hub" cx="50" cy="50" r="7"/></svg><b><span class="count" data-to="14">14</span></b><span>Trusted brands</span></div>
+        <div class="stat s-concrete" data-vis="radar" role="button" tabindex="0" aria-label="5 kilometre free delivery radius, replay animation"><svg class="stat-vis" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring-bg" cx="50" cy="50" r="14"/><circle class="ring-bg" cx="50" cy="50" r="28"/><circle class="ring-bg" cx="50" cy="50" r="42"/><g class="sweep"><path d="M50 50 L50 8 A42 42 0 0 1 79.7 20.3 Z"/></g><circle class="burst" cx="50" cy="50" r="6"/><circle class="burst" cx="50" cy="50" r="6"/><circle class="burst" cx="50" cy="50" r="6"/><circle class="hub" cx="50" cy="50" r="4.5"/></svg><b><span class="count" data-to="5" data-suffix=" km">5 km</span></b><span>Free delivery radius*</span></div>
       </div>
       <p class="fine" data-reveal>*On orders above 3 tonnes, around Potheri.</p>
 
       <p class="eyebrow apart-head" data-reveal>What sets us apart</p>
-      <div class="apart" data-stagger>
-        <article><span class="k">i.</span><h3>A legacy of reliability</h3><p>Contractors, builders and homeowners trust us because we consistently deliver quality products that stand the test of time.</p></article>
-        <article><span class="k">ii.</span><h3>Built around your project</h3><p>From small residential builds to large-scale infrastructure, we tailor every supply to match what the site needs.</p></article>
-        <article><span class="k">iii.</span><h3>A comprehensive inventory</h3><p>Ready stock of high-demand materials avoids delays, so you get what you need, when you need it.</p></article>
+      <div class="apart">
+        <article class="acard">
+          <span class="acard-num" aria-hidden="true">01</span>
+          <span class="acard-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path pathLength="1" d="M24 5 40 11v12c0 10-7 17-16 20C15 40 8 33 8 23V11Z"/><path pathLength="1" d="m17 24 5 5 9-10"/></svg></span>
+          <h3>A legacy of reliability</h3>
+          <p>Contractors, builders and homeowners trust us because we consistently deliver quality products that stand the test of time.</p>
+          <i class="acard-bar" aria-hidden="true"></i>
+        </article>
+        <article class="acard">
+          <span class="acard-num" aria-hidden="true">02</span>
+          <span class="acard-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path pathLength="1" d="M7 41V20L24 7l17 13v21"/><path pathLength="1" d="M18 41V29h12v12M4 41h40"/></svg></span>
+          <h3>Built around your project</h3>
+          <p>From small residential builds to large-scale infrastructure, we tailor every supply to match what the site needs.</p>
+          <i class="acard-bar" aria-hidden="true"></i>
+        </article>
+        <article class="acard">
+          <span class="acard-num" aria-hidden="true">03</span>
+          <span class="acard-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path pathLength="1" d="M6 30h16v12H6zM26 30h16v12H26zM16 15h16v12H16z"/><path pathLength="1" d="M4 42h40"/></svg></span>
+          <h3>A comprehensive inventory</h3>
+          <p>Ready stock of high-demand materials avoids delays, so you get what you need, when you need it.</p>
+          <i class="acard-bar" aria-hidden="true"></i>
+        </article>
       </div>
     </div>
   </section>
@@ -233,6 +258,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
-<script src="script.js?v=24"></script>
+<script src="script.js?v=35"></script>
 </body>
 </html>

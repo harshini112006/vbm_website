@@ -755,3 +755,177 @@ h2 { font-size: clamp(28px, 3.3vw, 46px); }
 
 /* About collage: looping TMT clip fills its frame like the image did */
 .collage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* =========================================================
+   Our Story: scroll-led statement with highlighted phrases
+   ========================================================= */
+.story { position: relative; max-width: 1080px; margin: clamp(90px, 11vw, 150px) auto 0; padding: clamp(40px, 5vw, 64px) clamp(16px, 4vw, 56px); text-align: center; }
+.story .eyebrow { margin-bottom: 30px; }
+.story .statement { margin: 0 auto; }
+.story-quote { position: absolute; left: 50%; top: -0.32em; transform: translateX(-50%); font-family: var(--display); font-weight: 800;
+  font-size: clamp(180px, 22vw, 320px); line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(90, 6, 16, .18); pointer-events: none; z-index: -1; }
+.story-rail { position: absolute; left: 0; top: 12%; bottom: 12%; width: 1px; background: rgba(11, 11, 11, .14); }
+.story-rail i { position: absolute; inset: 0; background: var(--crimson); transform-origin: top; transform: scaleY(1); }
+.statement mark { background: linear-gradient(var(--crimson), var(--crimson)) no-repeat 0 92% / 100% .09em; color: var(--crimson); padding: 0 .04em; }
+.story-sign { margin-top: 38px; display: inline-flex; align-items: center; gap: 14px; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; color: var(--soft); }
+.story-sign span { width: 42px; height: 1px; background: var(--crimson); }
+@media (max-width: 760px) {
+  .story-rail { display: none; }
+  .story-sign { font-size: 13px; }
+}
+
+/* Our Story backdrop: breathing rings and a drifting constellation (brand palette) */
+.story-quote { display: none; }
+.story-bg { position: absolute; inset: -14% -8%; z-index: -1; pointer-events: none; display: grid; place-items: center; }
+.story-particles { position: absolute; inset: 0; width: 100%; height: 100%;
+  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 50%, #000 40%, transparent 85%); mask-image: radial-gradient(ellipse 70% 65% at 50% 50%, #000 40%, transparent 85%); }
+.story-rings { width: min(760px, 100%); height: auto; overflow: visible;
+  filter: drop-shadow(0 0 10px rgba(90, 6, 16, .18)) drop-shadow(0 0 22px rgba(19, 39, 58, .16)); }
+.story-rings circle { fill: none; stroke-width: 1.6; transform-box: view-box; transform-origin: 450px 450px; animation: storyBreathe 6s ease-in-out infinite; will-change: transform, opacity; }
+.story-rings circle:nth-child(odd) { stroke: rgba(90, 6, 16, .32); }
+.story-rings circle:nth-child(even) { stroke: rgba(19, 39, 58, .3); }
+.story-rings circle:nth-child(2) { animation-delay: -1.5s; }
+.story-rings circle:nth-child(3) { animation-delay: -3s; }
+.story-rings circle:nth-child(4) { animation-delay: -4.5s; }
+@keyframes storyBreathe { 0%, 100% { transform: scale(.94); opacity: .45; } 50% { transform: scale(1.06); opacity: 1; } }
+@keyframes storyBreatheSoft { 0%, 100% { transform: scale(.985); opacity: .7; } 50% { transform: scale(1.015); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .story-rings circle { animation: storyBreatheSoft 12s ease-in-out infinite; } }
+
+/* Our Story: rebar-mesh grid with travelling light beams */
+.story-rings, .story-particles { display: none; }
+.story-grid { position: absolute; inset: 0; width: 100%; height: 100%;
+  -webkit-mask-image: radial-gradient(ellipse 72% 70% at 50% 50%, #000 35%, transparent 88%);
+  mask-image: radial-gradient(ellipse 72% 70% at 50% 50%, #000 35%, transparent 88%); }
+
+/* faster first paint: shorter curtain on every page and on the first-visit intro */
+.curtain { animation: curtain-up .7s cubic-bezier(.76, 0, .24, 1) 0s forwards; }
+.intro .curtain { animation-delay: .8s; }
+.intro .curtain-mark { animation-duration: .6s; }
+.intro .curtain-sub { animation-duration: .6s; animation-delay: .1s; }
+.intro .curtain-line::after { animation-duration: .7s; animation-delay: .05s; }
+/* keep the beams quiet behind the words, stronger toward the edges */
+.story-grid {
+  -webkit-mask-image: radial-gradient(ellipse 74% 72% at 50% 50%, rgba(0, 0, 0, .28) 0%, rgba(0, 0, 0, .28) 34%, #000 58%, transparent 90%);
+  mask-image: radial-gradient(ellipse 74% 72% at 50% 50%, rgba(0, 0, 0, .28) 0%, rgba(0, 0, 0, .28) 34%, #000 58%, transparent 90%);
+}
+
+/* =========================================================
+   What sets us apart: animated glass cards
+   ========================================================= */
+.apart { gap: clamp(16px, 2vw, 24px); perspective: 1100px; }
+.apart .acard {
+  position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r);
+  padding: 36px 32px 40px; border: 1px solid rgba(255, 255, 255, .65); border-top: 1px solid rgba(255, 255, 255, .8);
+  background: linear-gradient(160deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .18) 60%, rgba(255, 255, 255, .3));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 24px 48px -26px rgba(11, 11, 11, .35);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transform-style: preserve-3d; transition: box-shadow .6s var(--ease), border-color .6s var(--ease);
+}
+.apart .acard:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 36px 60px -24px rgba(90, 6, 16, .35); border-color: rgba(255, 255, 255, .9); }
+/* glare that follows the pointer */
+.acard::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .5s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, .75), rgba(255, 255, 255, 0) 46%); }
+.acard:hover::before { opacity: 1; }
+
+.acard-num { position: absolute; top: 14px; right: 22px; font-family: var(--display); font-weight: 800; font-size: 72px; line-height: 1;
+  color: rgba(90, 6, 16, .09); transition: color .5s var(--ease), transform .6s var(--ease); }
+.acard:hover .acard-num { color: rgba(90, 6, 16, .2); transform: translateY(-6px); }
+
+.acard-ico { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; margin-bottom: 28px;
+  background: var(--charcoal); color: var(--stone); box-shadow: 0 14px 26px -12px rgba(11, 11, 11, .55); transition: background .5s var(--ease), color .5s, transform .6s var(--ease); }
+.acard-ico svg { width: 32px; height: 32px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.acard-ico path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.acard:hover .acard-ico { background: var(--crimson); color: var(--paper); transform: translateZ(30px) rotate(-6deg); }
+
+.apart .acard h3 { font-size: clamp(21px, 1.8vw, 24px); margin: 0 0 12px; transform: translateZ(20px); }
+.apart .acard p { font-size: 17px; color: var(--soft); margin: 0; }
+.acard-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, var(--crimson), #8a1324); transform: scaleX(.12); transform-origin: left; transition: transform .8s var(--ease); }
+.acard:hover .acard-bar { transform: scaleX(1); }
+
+@media (max-width: 760px) {
+  .apart .acard { padding: 30px 24px 34px; }
+  .acard-num { font-size: 56px; }
+}
+
+/* quicker curtain so the hero pops up almost immediately */
+.curtain { animation: curtain-up .45s cubic-bezier(.76, 0, .24, 1) 0s forwards; }
+.intro .curtain { animation-delay: .4s; }
+.intro .curtain-mark, .intro .curtain-sub { animation-duration: .35s; animation-delay: 0s; }
+.intro .curtain-line::after { animation-duration: .4s; animation-delay: 0s; }
+
+/* =========================================================
+   Stat cards: built-in visuals and a click-to-replay effect
+   ========================================================= */
+.stat { cursor: pointer; isolation: isolate; -webkit-tap-highlight-color: transparent; }
+.stat:focus-visible { outline: 2px solid var(--paper); outline-offset: -6px; }
+.stat-vis { position: absolute; top: 22px; right: 22px; width: clamp(66px, 6.6vw, 96px); height: auto; overflow: visible; pointer-events: none;
+  fill: none; stroke: currentColor; stroke-width: 2; opacity: .6; z-index: -1; transition: opacity .4s; }
+.stat:hover .stat-vis { opacity: .9; }
+.stat-vis .ring-bg { stroke-opacity: .25; }
+.stat-vis .tick { stroke-width: 2.2; stroke-linecap: round; }
+.stat-vis .ring-arc { stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: .25; }
+.stat-vis .tile { fill: currentColor; fill-opacity: .14; transform-box: fill-box; transform-origin: center; animation: tile-float 4s ease-in-out infinite; }
+.stat-vis .tile:nth-child(2n) { animation-delay: -1.3s; } .stat-vis .tile:nth-child(3n) { animation-delay: -2.6s; }
+@keyframes tile-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+.stat-vis .dot { fill: currentColor; stroke: none; }
+.stat-vis .hub { fill: currentColor; stroke: none; }
+.stat-vis .orbit-idle { transform-box: view-box; transform-origin: 50px 50px; animation: orbit-spin 26s linear infinite; }
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
+.stat-vis .sweep { transform-box: view-box; transform-origin: 50px 50px; animation: orbit-spin 3.6s linear infinite; }
+.stat-vis .sweep path { fill: currentColor; fill-opacity: .22; stroke: none; }
+.stat-vis .burst { opacity: 0; stroke-width: 1.6; }
+
+/* ripple from the click point */
+.stat-ripple { position: absolute; z-index: -1; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(243, 240, 235, .45), rgba(243, 240, 235, 0) 70%); transform: scale(0); animation: stat-ripple .8s cubic-bezier(.2, .7, .2, 1) forwards; }
+@keyframes stat-ripple { to { transform: scale(26); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-vis .tile, .stat-vis .orbit-idle, .stat-vis .sweep { animation: none; }
+}
+
+/* leave room for the card visuals */
+.stat b { font-size: clamp(42px, 4.2vw, 64px); }
+
+/* =========================================================
+   Hero: rotating word with a metallic shimmer and underline
+   ========================================================= */
+.rotator { position: relative; display: inline-block; vertical-align: bottom; height: 1.2em; margin-bottom: -.1em; overflow: hidden;
+  transition: width .6s cubic-bezier(.65, 0, .35, 1); }
+.rot-word { position: absolute; left: 0; top: 0; white-space: nowrap; line-height: 1.2;
+  background: linear-gradient(100deg, #f3f0eb 0%, #f3f0eb 35%, #ffffff 45%, #bdb5ab 55%, #f3f0eb 65%, #f3f0eb 100%);
+  background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  transform: translateY(105%); opacity: 0; transition: transform .7s cubic-bezier(.65, 0, .35, 1), opacity .5s;
+  animation: rot-shine 3.2s linear infinite; }
+.rot-word.is-on { transform: translateY(0); opacity: 1; }
+.rot-word.is-out { transform: translateY(-105%); opacity: 0; }
+@keyframes rot-shine { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+.rotator::after { content: ""; position: absolute; left: 0; right: 0; bottom: .12em; height: .07em; border-radius: 2px;
+  background: linear-gradient(90deg, var(--crimson), #9a1428); transform-origin: left; transform: scaleX(var(--bar, 1)); transition: transform .7s cubic-bezier(.65, 0, .35, 1); }
+@media (prefers-reduced-motion: reduce) { .rot-word { animation: none; transition: none; } .rotator { transition: none; } }
+/* shimmer as a bright glint only, so the word matches the rest of the headline */
+.rot-word { background-image: linear-gradient(100deg, #f3f0eb 0%, #f3f0eb 40%, #ffffff 48%, #fffaf0 52%, #f3f0eb 60%, #f3f0eb 100%); }
+
+/* =========================================================
+   Hero middle line: hollow lettering around a crimson chip
+   ========================================================= */
+.l-unique { padding-top: .12em; padding-bottom: .22em; }
+.l-unique .hollow { color: transparent; -webkit-text-stroke: 1.6px rgba(243, 240, 235, .95); paint-order: stroke; letter-spacing: -0.01em; }
+.l-unique .rotator {
+  box-sizing: content-box; padding: 0 .3em; margin: 0 .06em; height: 1.18em; vertical-align: -0.2em;
+  border-radius: .24em; transform: rotate(-2.5deg); transform-origin: 50% 60%;
+  background: linear-gradient(135deg, #7d0d1d 0%, var(--crimson) 55%, #3d0309 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), inset 0 -2px 0 rgba(0, 0, 0, .25), 0 .18em .55em rgba(90, 6, 16, .55);
+  transition: width .6s cubic-bezier(.65, 0, .35, 1), transform .5s cubic-bezier(.34, 1.56, .64, 1);
+}
+.l-unique .rotator::after { display: none; }
+.l-unique .rotator::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0) 35%, rgba(255, 255, 255, .22) 50%, rgba(255, 255, 255, 0) 65%);
+  background-size: 250% 100%; animation: chip-sheen 3.6s ease-in-out infinite; }
+@keyframes chip-sheen { 0%, 20% { background-position: 150% 0; } 60%, 100% { background-position: -50% 0; } }
+.l-unique .rot-word { left: .3em; line-height: 1.18; color: #fff; background: none; -webkit-background-clip: border-box; background-clip: border-box; animation: none; }
+.l-unique .rotator.bump { transform: rotate(-2.5deg) scale(1.06); }
+@media (max-width: 760px) {
+  .l-unique .hollow { -webkit-text-stroke-width: 1.2px; }
+}
+@media (prefers-reduced-motion: reduce) { .l-unique .rotator::before { animation: none; } }

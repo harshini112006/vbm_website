@@ -93,7 +93,15 @@
   /* ---- hero time-lapse: no autoplay for reduced motion ---- */
   const vid = document.querySelector('.hero-bg');
   if (vid) {
-    if (reduce) vid.pause();
+    const source = vid.querySelector('source[data-src]');
+    const startVideo = () => {
+      if (source && !source.src) { source.src = source.dataset.src; vid.load(); }
+      vid.play().catch(() => {});
+    };
+    if (!reduce) {
+      if (document.readyState === 'complete') startVideo();
+      else window.addEventListener('load', startVideo, { once: true });
+    }
 
     // dip to charcoal as the day ends, so the loop back to night is not a hard cut
     const dip = document.createElement('div');
@@ -105,6 +113,165 @@
       dip.classList.toggle('on', left < 1.1 || vid.currentTime < 0.35);
     });
   }
+
+  /* ---- Our Story: a rebar-mesh grid with light beams running along the bars ---- */
+  $$('.story-bg').forEach((bg) => {
+    const canvas = document.createElement('canvas');
+    canvas.className = 'story-grid';
+    canvas.setAttribute('aria-hidden', 'true');
+    bg.prepend(canvas);
+    const ctx = canvas.getContext('2d');
+    const GAP = 56;
+    const COLORS = ['90,6,16', '90,6,16', '19,39,58'];
+    let W = 0, H = 0, ox = 0, oy = 0, cols = 0, rows = 0, beams = [], running = false, raf = 0;
+    const pointer = { x: -9999, y: -9999 };
+    const flashes = new Map();   // joint key -> brightness
+
+    const newBeam = (fresh) => {
+      const horiz = Math.random() < 0.5;
+      const lane = horiz ? Math.round(Math.random() * rows) : Math.round(Math.random() * cols);
+      const span = horiz ? W : H;
+      const dir = Math.random() < 0.5 ? 1 : -1;
+      const len = 90 + Math.random() * 150;
+      return {
+        horiz, dir, len,
+        pos: horiz ? oy + lane * GAP : ox + lane * GAP,
+        head: fresh ? Math.random() * span : (dir > 0 ? -len : span + len),
+        speed: 1.4 + Math.random() * 1.8,
+        c: COLORS[(Math.random() * COLORS.length) | 0],
+      };
+    };
+
+    const resize = () => {
+      const box = bg.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = box.width; H = box.height;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.floor(W / GAP); rows = Math.floor(H / GAP);
+      ox = (W - cols * GAP) / 2; oy = (H - rows * GAP) / 2;
+      const count = W < 768 ? 6 : 11;
+      beams = Array.from({ length: count }, () => newBeam(true));
+    };
+
+    const drawGrid = () => {
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(11,11,11,0.075)';
+      ctx.beginPath();
+      for (let i = 0; i <= cols; i++) { const x = ox + i * GAP + 0.5; ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+      for (let j = 0; j <= rows; j++) { const y = oy + j * GAP + 0.5; ctx.moveTo(0, y); ctx.lineTo(W, y); }
+      ctx.stroke();
+      // tie-wire knots at each joint, like a rebar mesh
+      ctx.fillStyle = 'rgba(11,11,11,0.16)';
+      for (let i = 0; i <= cols; i++) for (let j = 0; j <= rows; j++) ctx.fillRect(ox + i * GAP - 1, oy + j * GAP - 1, 2.5, 2.5);
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      drawGrid();
+      // soft crimson glow on the mesh around the cursor
+      if (pointer.x > -999) {
+        const g = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 170);
+        g.addColorStop(0, 'rgba(90,6,16,0.10)');
+        g.addColorStop(1, 'rgba(90,6,16,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(pointer.x - 170, pointer.y - 170, 340, 340);
+      }
+      for (const b of beams) {
+        const tail = b.head - b.dir * b.len;
+        const [x1, y1, x2, y2] = b.horiz ? [tail, b.pos, b.head, b.pos] : [b.pos, tail, b.pos, b.head];
+        const grad = ctx.createLinearGradient(x1, y1, x2, y2);
+        grad.addColorStop(0, `rgba(${b.c},0)`);
+        grad.addColorStop(1, `rgba(${b.c},0.85)`);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(x1 + 0.5, y1 + 0.5); ctx.lineTo(x2 + 0.5, y2 + 0.5); ctx.stroke();
+        ctx.fillStyle = `rgba(${b.c},0.95)`;
+        ctx.beginPath(); ctx.arc(x2 + 0.5, y2 + 0.5, 2.6, 0, Math.PI * 2); ctx.fill();
+      }
+      // joints flare briefly when a beam passes through them
+      for (const [key, a] of flashes) {
+        const [x, y, c] = key.split('|');
+        ctx.strokeStyle = `rgba(${c},${a * 0.7})`;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.arc(+x + 0.5, +y + 0.5, 4 + (1 - a) * 9, 0, Math.PI * 2); ctx.stroke();
+      }
+    };
+
+    const step = () => {
+      for (let k = 0; k < beams.length; k++) {
+        const b = beams[k];
+        const before = b.head;
+        b.head += b.dir * b.speed;
+        const origin = b.horiz ? ox : oy;
+        // did the head cross a joint this frame?
+        const cellA = Math.floor((before - origin) / GAP), cellB = Math.floor((b.head - origin) / GAP);
+        if (cellA !== cellB) {
+          const at = origin + Math.max(cellA, cellB) * GAP;
+          const key = b.horiz ? `${at}|${b.pos}|${b.c}` : `${b.pos}|${at}|${b.c}`;
+          flashes.set(key, 1);
+        }
+        const span = b.horiz ? W : H;
+        if ((b.dir > 0 && b.head - b.len > span) || (b.dir < 0 && b.head + b.len < 0)) beams[k] = newBeam(false);
+      }
+      for (const [key, a] of flashes) { if (a <= 0.04) flashes.delete(key); else flashes.set(key, a * 0.94); }
+      draw();
+      if (running) raf = requestAnimationFrame(step);
+    };
+    const play = () => { if (!running && !reduce) { running = true; raf = requestAnimationFrame(step); } };
+    const pause = () => { running = false; cancelAnimationFrame(raf); };
+
+    resize();
+    draw();
+    window.addEventListener('resize', () => { resize(); draw(); });
+    const story = bg.closest('.story') || bg;
+    story.addEventListener('pointermove', (e) => {
+      const r = bg.getBoundingClientRect();
+      pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top;
+    });
+    story.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((es) => es.forEach((e) => (e.isIntersecting ? play() : pause()))).observe(bg);
+    } else {
+      play();
+    }
+  });
+
+  /* ---- hero: the word after "your" rotates through what people build ---- */
+  $$('.rotator').forEach((rot) => {
+    const words = $$('.rot-word', rot);
+    let i = 0;
+    const fit = (w) => { rot.style.width = `${w.offsetWidth}px`; };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => fit(words[i]));
+    fit(words[0]);
+    window.addEventListener('resize', () => fit(words[i]));
+    if (reduce || words.length < 2) return;
+
+    const next = () => {
+      const cur = words[i];
+      i = (i + 1) % words.length;
+      const nw = words[i];
+      cur.classList.remove('is-on');
+      cur.classList.add('is-out');
+      nw.classList.add('is-on');
+      fit(nw);
+      // the chip gives a small springy bump as the word changes
+      rot.classList.add('bump');
+      setTimeout(() => rot.classList.remove('bump'), 320);
+      // underline retracts, then redraws under the new word
+      rot.style.setProperty('--bar', '0');
+      setTimeout(() => rot.style.setProperty('--bar', '1'), 380);
+      // park the old word back below, out of sight, ready for its next turn
+      setTimeout(() => {
+        cur.style.transition = 'none';
+        cur.classList.remove('is-out');
+        void cur.offsetWidth;
+        cur.style.transition = '';
+      }, 760);
+    };
+    setTimeout(() => setInterval(next, 2600), 1600);
+  });
 
   /* ---- decorative clips load only when they scroll near the screen ---- */
   $$('video.lazy-video').forEach((v) => {
@@ -185,12 +352,12 @@
   };
 
   // the hero starts as the curtain lifts
-  const start = intro ? 1.75 : 0.55;
+  const start = intro ? 0.45 : 0;
   if ($$('.hero').length) {
     const tl = gsap.timeline({ delay: start, defaults: { ease: 'power4.out' } });
-    tl.fromTo('.hero-bg', { scale: 1.18, opacity: 0 }, { scale: 1, opacity: 1, duration: 2.6, ease: 'power3.out' }, 0)
-      .from('.hero .ln > span', { yPercent: 120, duration: 1.3, stagger: 0.14 }, 0.3)
-      .from('.hero .eyebrow, .hero .lead, .hero .actions, .hero-meta', { y: 32, opacity: 0, duration: 1, stagger: 0.1 }, '-=0.9');
+    tl.fromTo('.hero-bg', { scale: 1.08, opacity: 0.6 }, { scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out' }, 0)
+      .from('.hero .ln > span', { yPercent: 110, duration: 0.75, stagger: 0.07 }, 0.05)
+      .from('.hero .eyebrow, .hero .lead, .hero .actions, .hero-meta', { y: 20, opacity: 0, duration: 0.55, stagger: 0.05 }, 0.15);
 
     // the video drifts slower than the page, like looking through a window
     gsap.to('.hero-bg', { yPercent: 14, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
@@ -226,11 +393,28 @@
 
   // About: the statement lights up word by word as it scrolls past
   $$('[data-highlight]').forEach((p) => {
+    const marks = $$('mark', p);
     const words = splitWords(p).map((w) => w.parentNode);
-    gsap.fromTo(words, { opacity: 0.16 }, {
-      opacity: 1, ease: 'none', stagger: 0.1,
-      scrollTrigger: { trigger: p, start: 'top 82%', end: 'bottom 48%', scrub: true },
+    const range = { trigger: p, start: 'top 85%', end: 'bottom 50%', scrub: 0.6 };
+    // each word rises, sharpens and brightens in reading order
+    gsap.fromTo(words, { opacity: 0.35, yPercent: 30, filter: 'blur(1.2px)' }, {
+      opacity: 1, yPercent: 0, filter: 'blur(0px)', ease: 'power1.out', stagger: 0.1, scrollTrigger: range,
     });
+    // key phrases draw a crimson underline as the reading reaches them
+    marks.forEach((m) => {
+      gsap.fromTo(m, { backgroundSize: '0% .09em' }, {
+        backgroundSize: '100% .09em', ease: 'none',
+        scrollTrigger: { trigger: m, start: 'top 64%', end: 'top 50%', scrub: 0.6 },
+      });
+    });
+    const story = p.closest('.story');
+    if (story) {
+      gsap.fromTo(story.querySelector('.story-rail i'), { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: range });
+      gsap.from(story.querySelector('.story-sign'), {
+        y: 24, opacity: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: story.querySelector('.story-sign'), start: 'top 92%' },
+      });
+    }
   });
 
   // About: collage pieces move at different depths
@@ -285,6 +469,60 @@
     });
   });
 
+  // stat cards rise in, play their visual once, and replay it when clicked
+  const stats = $$('.stat[data-vis]');
+  if (stats.length) {
+    gsap.from(stats, { y: 90, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.12, scrollTrigger: { trigger: '.stats', start: 'top 85%' } });
+
+    const playVis = (card) => {
+      const svg = card.querySelector('.stat-vis');
+      const kind = card.dataset.vis;
+      if (kind === 'ring') {
+        gsap.fromTo(svg.querySelector('.ring-arc'), { strokeDashoffset: 1 }, { strokeDashoffset: 0.25, duration: 1.2, ease: 'power3.out' });
+        gsap.fromTo(svg.querySelectorAll('.tick'), { opacity: 0.15 }, { opacity: 1, duration: 0.25, stagger: 0.04, ease: 'none' });
+      } else if (kind === 'tiles') {
+        gsap.fromTo(svg.querySelectorAll('.tile'), { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.6, stagger: 0.07, ease: 'back.out(2.6)' });
+      } else if (kind === 'orbit') {
+        gsap.to(svg.querySelector('.orbit'), { rotation: '+=360', svgOrigin: '50 50', duration: 1.4, ease: 'power3.inOut' });
+        gsap.fromTo(svg.querySelectorAll('.dot'), { scale: 1.9, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.9, stagger: 0.04, ease: 'elastic.out(1, .5)' });
+      } else if (kind === 'radar') {
+        gsap.fromTo(svg.querySelectorAll('.burst'), { attr: { r: 5 }, opacity: 0.9 }, { attr: { r: 50 }, opacity: 0, duration: 1.1, stagger: 0.22, ease: 'power2.out' });
+      }
+    };
+
+    const recount = (card) => {
+      const el = card.querySelector('.count');
+      const to = parseFloat(el.dataset.to);
+      const suffix = el.dataset.suffix || '';
+      const o = { v: 0 };
+      gsap.to(o, { v: to, duration: 1.1, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(o.v) + suffix; } });
+    };
+
+    const fire = (card, x, y) => {
+      const r = card.getBoundingClientRect();
+      const rip = document.createElement('span');
+      rip.className = 'stat-ripple';
+      rip.style.left = `${(x ?? r.left + r.width / 2) - r.left}px`;
+      rip.style.top = `${(y ?? r.top + r.height / 2) - r.top}px`;
+      card.appendChild(rip);
+      rip.addEventListener('animationend', () => rip.remove());
+      gsap.fromTo(card, { scale: 0.95 }, { scale: 1, duration: 0.7, ease: 'elastic.out(1, .45)' });
+      recount(card);
+      playVis(card);
+    };
+
+    stats.forEach((card) => {
+      card.addEventListener('click', (e) => fire(card, e.clientX, e.clientY));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fire(card); }
+      });
+    });
+    ScrollTrigger.create({
+      trigger: '.stats', start: 'top 80%', once: true,
+      onEnter: () => stats.forEach((c, i) => setTimeout(() => playVis(c), 300 + i * 150)),
+    });
+  }
+
   // journey timeline draws itself as you scroll
   if ($$('.timeline').length) {
     const mm = gsap.matchMedia();
@@ -312,6 +550,33 @@
         t = setTimeout(() => gsap.to(tracks, { skewX: 0, duration: 0.9, ease: 'power3.out', overwrite: true }), 90);
       },
     });
+  }
+
+  // "What sets us apart": cards tip up into place, then each icon draws itself
+  if ($$('.acard').length) {
+    const cards = $$('.acard');
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '.apart', start: 'top 82%' } });
+    tl.from(cards, { y: 90, rotationX: -18, opacity: 0, transformPerspective: 1100, transformOrigin: '50% 100%', duration: 1.1, ease: 'power3.out', stagger: 0.14 })
+      .from($$('.acard-ico path'), { strokeDashoffset: 1, duration: 1, ease: 'power2.inOut', stagger: 0.08 }, 0.35)
+      .from($$('.acard-num'), { y: 30, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.14 }, 0.3);
+
+    // hover: tilt toward the pointer, with a glare that follows it
+    if (fine) {
+      cards.forEach((c) => {
+        const rx = gsap.quickTo(c, 'rotationX', { duration: 0.6, ease: 'power3.out' });
+        const ry = gsap.quickTo(c, 'rotationY', { duration: 0.6, ease: 'power3.out' });
+        gsap.set(c, { transformPerspective: 1100 });
+        c.addEventListener('pointermove', (e) => {
+          const r = c.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+          c.style.setProperty('--mx', `${px * 100}%`);
+          c.style.setProperty('--my', `${py * 100}%`);
+          rx((0.5 - py) * 10);
+          ry((px - 0.5) * 12);
+        });
+        c.addEventListener('pointerleave', () => { rx(0); ry(0); });
+      });
+    }
   }
 
   // principle cards fan in
