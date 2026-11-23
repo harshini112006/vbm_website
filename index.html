@@ -8,9 +8,9 @@
 <link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <script>try{if(!sessionStorage.getItem("vbm-intro")){document.documentElement.classList.add("intro");sessionStorage.setItem("vbm-intro","1")}}catch(e){}</script>
-<link rel="stylesheet" href="styles.css?v=35">
+<link rel="stylesheet" href="styles.css?v=48">
 </head>
 <body>
 
@@ -176,19 +176,24 @@
         <p class="eyebrow center" data-reveal>The Collection</p>
         <h2 class="split-words">Our products, <em>at a glance</em></h2>
       </div>
-      <div class="tiles">
-        <div class="tcol" data-y="40">
-          <a class="tile imgwrap tall" href="products.html#cement"><img src="assets/img/cement.jpg" alt="" loading="lazy"><div><span class="chip c-red">I</span><h3>Cement</h3><p>UltraTech, Dalmia, Ramco, Chettinad</p></div></a>
-          <a class="tile imgwrap sq" href="products.html#blocks"><img src="assets/img/blocks.jpg" alt="" loading="lazy"><div><span class="chip c-steel">IV</span><h3>Bricks &amp; Blocks</h3><p>Cement, AAC and wire cut bricks</p></div></a>
-          <a class="tile imgwrap tall" href="products.html#doors"><img src="assets/img/doors.jpg" alt="" loading="lazy"><div><span class="chip c-stone">VII</span><h3>Doors &amp; Windows</h3><p>Wooden, UPVC, interiors</p></div></a>
-        </div>
-        <div class="tcol drop" data-y="-60">
-          <a class="tile imgwrap sq" href="products.html#tmt"><img src="assets/img/tmt.jpg" alt="" loading="lazy"><div><span class="chip c-steel">II</span><h3>TMT Bars</h3><p>8 mm to 25 mm, six leading brands</p></div></a>
-          <a class="tile imgwrap tall" href="products.html#aggregates"><img src="assets/img/aggregates.jpg" alt="" loading="lazy"><div><span class="chip c-red">III</span><h3>Blue Metal &amp; Sand</h3><p>M-Sand, P-Sand, jelly, chips</p></div></a>
-        </div>
-        <div class="tcol" data-y="25">
-          <a class="tile imgwrap tall" href="products.html#tiles"><img src="assets/img/tiles.jpg" alt="" loading="lazy"><div><span class="chip c-stone">V</span><h3>Tiles</h3><p>KAG tiles for every room</p></div></a>
-          <a class="tile imgwrap sq" href="products.html#sanitary"><img src="assets/img/sanitary.jpg" alt="" loading="lazy"><div><span class="chip c-red">VI</span><h3>Sanitary Ware</h3><p>Closets, basins, taps, showers</p></div></a>
+      <div class="plx">
+        <ul class="plx-list">
+          <li><a class="plx-item is-active" href="products.html#cement" data-i="0" data-num="I" data-brands="UltraTech · Dalmia · Ramco · Chettinad"><span class="plx-name">Cement</span></a></li>
+          <li><a class="plx-item" href="products.html#tmt" data-i="1" data-num="II" data-brands="TATA Tiscon · ARS · Isteel · JR · MCR · Sri Durga"><span class="plx-name">TMT Bars</span></a></li>
+          <li><a class="plx-item" href="products.html#aggregates" data-i="2" data-num="III" data-brands="M-Sand · P-Sand · ¾″ and 1½″ jelly · Chips"><span class="plx-name">Blue Metal &amp; Sand</span></a></li>
+          <li><a class="plx-item" href="products.html#blocks" data-i="3" data-num="IV" data-brands="Cement blocks · AAC: Renecon, Ekocon, JJM · Wire cut brick"><span class="plx-name">Bricks &amp; Blocks</span></a></li>
+          <li><a class="plx-item" href="products.html#tiles" data-i="4" data-num="V" data-brands="KAG tiles for floors, kitchens, bathrooms and more"><span class="plx-name">Tiles</span></a></li>
+          <li><a class="plx-item" href="products.html#sanitary" data-i="5" data-num="VI" data-brands="Closets · Washbasins · Mixers · Showers · Taps"><span class="plx-name">Sanitary Ware</span></a></li>
+          <li><a class="plx-item" href="products.html#doors" data-i="6" data-num="VII" data-brands="Wooden · PVC / UPVC / WPVC · Interiors · Wardrobes"><span class="plx-name">Doors &amp; Windows</span></a></li>
+        </ul>
+        <div class="plx-stage" aria-hidden="true">
+          <figure class="plx-img multi is-active" data-i="0"><span class="shot s1"><img src="assets/img/cement-mixer.jpg" alt="" loading="lazy"></span><span class="shot s2"><img src="assets/img/cement-mixing.jpg" alt="" loading="lazy"></span><span class="shot s3"><img src="assets/img/cement-plastering.jpg" alt="" loading="lazy"></span></figure>
+          <figure class="plx-img" data-i="1"><img src="assets/img/tmt.jpg" alt="" loading="lazy"></figure>
+          <figure class="plx-img" data-i="2"><img src="assets/img/aggregates.jpg" alt="" loading="lazy"></figure>
+          <figure class="plx-img" data-i="3"><img src="assets/img/blocks.jpg" alt="" loading="lazy"></figure>
+          <figure class="plx-img" data-i="4"><img src="assets/img/tiles.jpg" alt="" loading="lazy"></figure>
+          <figure class="plx-img" data-i="5"><img src="assets/img/sanitary.jpg" alt="" loading="lazy"></figure>
+          <figure class="plx-img" data-i="6"><img src="assets/img/doors.jpg" alt="" loading="lazy"></figure>
         </div>
       </div>
       <p class="center-cta" data-reveal><a href="products.html" class="btn btn-primary">View All Products</a></p>
@@ -258,6 +263,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
-<script src="script.js?v=35"></script>
+<script src="script.js?v=48"></script>
 </body>
 </html>

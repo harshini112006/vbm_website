@@ -238,6 +238,34 @@
     }
   });
 
+  /* ---- products at a glance: the active name lights up, its image and brands show ---- */
+  const plxItems = $$('.plx-item');
+  let setPlx = () => {};
+  let plxPinned = false;   // true while the desktop scroll is stepping through the list
+  if (plxItems.length) {
+    const imgs = $$('.plx-img');
+    const card = document.querySelector('.plx-card');
+    let cur = 0;
+    setPlx = (i) => {
+      if (i === cur) return;
+      cur = i;
+      plxItems.forEach((a, k) => a.classList.toggle('is-active', k === i));
+      imgs.forEach((f) => f.classList.toggle('is-active', +f.dataset.i === i));
+      if (card) {
+        card.querySelector('.plx-num').textContent = plxItems[i].dataset.num;
+        card.querySelector('.plx-brands').textContent = plxItems[i].dataset.brands;
+        card.classList.remove('swap');
+        void card.offsetWidth;
+        card.classList.add('swap');
+      }
+    };
+    plxItems.forEach((a) => {
+      const i = +a.dataset.i;
+      a.addEventListener('mouseenter', () => { if (!plxPinned) setPlx(i); });
+      a.addEventListener('focus', () => { if (!plxPinned) setPlx(i); });
+    });
+  }
+
   /* ---- hero: the word after "your" rotates through what people build ---- */
   $$('.rotator').forEach((rot) => {
     const words = $$('.rot-word', rot);
@@ -537,8 +565,9 @@
     });
   }
 
-  // brand marquees lean with scroll velocity
-  const tracks = $$('.mq-track');
+  // the ticker strip and brand marquees lean with scroll velocity
+  // (on the outer strips: the sliding tracks' CSS animation would override a transform set on them)
+  const tracks = $$('.mq, .ticker');
   if (tracks.length) {
     let t;
     ScrollTrigger.create({
@@ -577,6 +606,54 @@
         c.addEventListener('pointerleave', () => { rx(0); ry(0); });
       });
     }
+  }
+
+  // products at a glance: names rise in, and on desktop the one passing mid-screen becomes active
+  if (plxItems.length) {
+    gsap.from(plxItems, { y: 40, opacity: 0, duration: 0.9, stagger: 0.06, ease: 'power3.out', scrollTrigger: { trigger: '.plx-list', start: 'top 85%' } });
+    // desktop: on the first pass down, hold the list and step through every product;
+    // after that (or when coming back up into it) it scrolls by like any other section
+    gsap.matchMedia().add('(min-width: 1021px)', () => {
+      const plx = document.querySelector('.plx');
+      const stage = document.querySelector('.plx-stage');
+      const n = plxItems.length;
+      const follow = [];
+      let released = false;
+
+      const release = () => {
+        if (released) return;
+        released = true;
+        plxPinned = false;
+        // remove the held scroll distance and shift the scroll by the same amount, so nothing jumps
+        const y = window.scrollY - (st.end - st.start);
+        st.kill();
+        ScrollTrigger.refresh();
+        if (lenis) { lenis.resize(); lenis.scrollTo(y, { immediate: true, force: true }); } else { window.scrollTo(0, y); }
+        // from now on the active product simply follows the scroll
+        plxItems.forEach((a) => follow.push(ScrollTrigger.create({
+          trigger: a, start: 'top 60%', end: 'bottom 60%',
+          onToggle: (self) => { if (self.isActive) setPlx(+a.dataset.i); },
+        })));
+      };
+
+      const st = ScrollTrigger.create({
+        trigger: plx, start: 'center center', end: `+=${n * 60}%`,
+        pin: true, anticipatePin: 1,
+        onToggle: (self) => { plxPinned = self.isActive; },
+        onUpdate: (self) => {
+          const i = Math.min(n - 1, Math.floor(self.progress * n));
+          setPlx(i);
+          // how far through the current product (0 to 1): photo sets drift at different speeds with it
+          stage.style.setProperty('--sp', Math.min(1, self.progress * n - i).toFixed(3));
+        },
+        onLeave: () => requestAnimationFrame(release),       // finished the list going down
+        onEnterBack: () => requestAnimationFrame(release),   // coming back up from below: no hold
+      });
+      // page opened (or restored) already below the list: never hold it
+      if (window.scrollY > st.end) requestAnimationFrame(release);
+
+      return () => { st.kill(); follow.forEach((t) => t.kill()); };
+    });
   }
 
   // principle cards fan in
