@@ -106,6 +106,21 @@
     });
   }
 
+  /* ---- decorative clips load only when they scroll near the screen ---- */
+  $$('video.lazy-video').forEach((v) => {
+    const start = () => {
+      if (!v.src) { v.src = v.dataset.src; v.load(); }
+      if (!reduce) v.play().catch(() => {});
+    };
+    if (!('IntersectionObserver' in window)) { start(); return; }
+    new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) start();
+        else if (v.src) v.pause();
+      });
+    }, { rootMargin: '300px 0px' }).observe(v);
+  });
+
   /* ---- page transitions: the curtain lifts on arrival (CSS) and drops before leaving ---- */
   const intro = html.classList.contains('intro');
   if (curtain && hasGsap && !reduce) {
@@ -239,7 +254,7 @@
     gsap.fromTo(el,
       { clipPath: 'inset(16% 16% 16% 16% round 40px)', opacity: 0 },
       { clipPath: 'inset(0% 0% 0% 0% round 24px)', opacity: 1, duration: 1.4, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 92%' } });
-    const img = el.querySelector('img');
+    const img = el.querySelector('img, video');
     if (img) {
       gsap.fromTo(img, { yPercent: -9, scale: 1.2 }, {
         yPercent: 9, ease: 'none',

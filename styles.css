@@ -15,8 +15,8 @@
   --eyebrow: var(--stone);
   --line: rgba(189, 181, 171, .22);
 
-  --display: "Bodoni Moda", "Didot", Georgia, serif;
-  --sans: "Hanken Grotesk", system-ui, sans-serif;
+  --display: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --sans: "Google Sans", "Segoe UI", system-ui, sans-serif;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --r: 24px;
 }
@@ -38,7 +38,7 @@ body.locked { overflow: hidden; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
 img { max-width: 100%; }
-em { font-style: italic; color: var(--em); }
+em { font-style: normal; color: var(--em); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 .wrap { width: min(1240px, 100% - 56px); margin-inline: auto; }
@@ -139,7 +139,7 @@ h2 { font-size: clamp(36px, 5vw, 68px); }
 /* Ticker */
 .ticker { background: var(--crimson); color: var(--paper); overflow: hidden; padding: 18px 0; }
 .ticker-track { display: flex; align-items: center; gap: 34px; width: max-content; animation: tick 46s linear infinite; }
-.ticker span { font-family: var(--display); font-style: italic; font-size: 24px; white-space: nowrap; }
+.ticker span { font-family: var(--display); font-style: normal; font-size: 24px; white-space: nowrap; }
 .ticker i { width: 7px; height: 7px; background: var(--stone); border-radius: 50%; flex: none; }
 @keyframes tick { to { transform: translateX(-50%); } }
 
@@ -168,7 +168,7 @@ h2 { font-size: clamp(36px, 5vw, 68px); }
 .tl-line { position: absolute; left: 0; right: 0; top: 9px; height: 1px; background: var(--stone); transform-origin: left center; }
 .step { position: relative; padding: 46px 30px 0 0; }
 .step::before { content: ""; position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--crimson); border: 3px solid var(--stone); box-shadow: 0 0 0 6px var(--steel); }
-.yr { font-family: var(--display); font-style: italic; font-size: 27px; color: var(--stone); display: block; margin-bottom: 12px; }
+.yr { font-family: var(--display); font-style: normal; font-size: 27px; color: var(--stone); display: block; margin-bottom: 12px; }
 .step h3 { font-size: 27px; margin-bottom: 10px; }
 .step p { font-size: 15.5px; color: var(--soft); }
 
@@ -184,7 +184,7 @@ h2 { font-size: clamp(36px, 5vw, 68px); }
 .tile h3 { color: var(--paper); font-size: 30px; margin: 10px 0 4px; }
 .tile p { font-size: 14.5px; color: rgba(243, 240, 235, .8); line-height: 1.5; }
 .tile:hover div { transform: translateY(-8px); }
-.chip { display: inline-block; font-family: var(--display); font-style: italic; font-size: 14px; padding: 4px 14px; border-radius: 999px; }
+.chip { display: inline-block; font-family: var(--display); font-style: normal; font-size: 14px; padding: 4px 14px; border-radius: 999px; }
 .c-red { background: var(--crimson); color: var(--paper); } .c-steel { background: var(--steel); color: var(--paper); box-shadow: inset 0 0 0 1px rgba(189,181,171,.5); } .c-stone { background: var(--stone); color: var(--charcoal); }
 .center-cta { text-align: center; margin-top: 70px; }
 
@@ -194,7 +194,7 @@ h2 { font-size: clamp(36px, 5vw, 68px); }
 .mq { overflow: hidden; white-space: nowrap; padding: 6px 0; }
 .mq-track { display: inline-flex; gap: 0; animation: slide 40s linear infinite; will-change: transform; }
 .mq.rev .mq-track { animation-direction: reverse; animation-duration: 46s; }
-.mq-track span { font-family: var(--display); font-style: italic; font-size: clamp(54px, 8vw, 120px); line-height: 1.15; padding: 0 .45em; color: var(--paper); position: relative; }
+.mq-track span { font-family: var(--display); font-style: normal; font-size: clamp(54px, 8vw, 120px); line-height: 1.15; padding: 0 .45em; color: var(--paper); position: relative; }
 .mq.rev .mq-track span { color: transparent; -webkit-text-stroke: 1px var(--stone); }
 .mq-track span::after { content: ""; position: absolute; right: -.06em; top: 50%; width: .1em; height: .1em; background: var(--stone); transform: translateY(-50%) rotate(45deg); }
 @keyframes slide { to { transform: translateX(-50%); } }
@@ -202,7 +202,7 @@ h2 { font-size: clamp(36px, 5vw, 68px); }
 /* ---------- Principles ---------- */
 .pcards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
 .pcard { border-radius: var(--r); padding: 30px 24px; min-height: 380px; display: flex; flex-direction: column; justify-content: flex-end; position: relative; color: var(--paper); }
-.pcard .k { position: absolute; top: 26px; left: 24px; font-family: var(--display); font-style: italic; font-size: 20px; opacity: .8; }
+.pcard .k { position: absolute; top: 26px; left: 24px; font-family: var(--display); font-style: normal; font-size: 20px; opacity: .8; }
 .pcard h3 { font-size: 32px; margin-bottom: 10px; color: inherit; }
 .pcard p { font-size: 15px; line-height: 1.55; opacity: .85; }
 .p-ink { background: var(--charcoal); box-shadow: inset 0 0 0 1px rgba(189, 181, 171, .45); }
@@ -235,7 +235,7 @@ h2 { font-size: clamp(36px, 5vw, 68px); }
 .prow figure { aspect-ratio: 4 / 3; overflow: hidden; background: var(--steel); border-radius: var(--r); position: relative; }
 .prow figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .prow.rev figure { order: 2; }
-.num { font-family: var(--display); font-style: italic; font-size: 18px; color: var(--stone); display: block; margin-bottom: 6px; }
+.num { font-family: var(--display); font-style: normal; font-size: 18px; color: var(--stone); display: block; margin-bottom: 6px; }
 .prow h2 { font-size: clamp(36px, 4.2vw, 58px); margin-bottom: 16px; }
 .prow p { color: var(--soft); margin-bottom: 26px; max-width: 460px; }
 .prow h4 { font-family: var(--sans); font-weight: 600; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--stone); margin: 20px 0 9px; }
@@ -373,7 +373,7 @@ html.lenis, html.lenis body { height: auto; }
 .apart-head { margin-top: clamp(70px, 8vw, 110px); }
 .apart { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 56px); }
 .apart article { border-top: 1px solid var(--line); padding-top: 28px; }
-.apart .k { font-family: var(--display); font-style: italic; color: var(--crimson); font-size: 18px; }
+.apart .k { font-family: var(--display); font-style: normal; color: var(--crimson); font-size: 18px; }
 .apart h3 { font-size: clamp(24px, 2.2vw, 30px); margin: 8px 0 12px; }
 .apart p { font-size: 15.5px; color: var(--soft); margin: 0; }
 
@@ -402,7 +402,7 @@ html.lenis, html.lenis body { height: auto; }
 .psteps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; counter-reset: none; }
 .psteps li { border: 1px solid rgba(189, 181, 171, .3); border-radius: var(--r); padding: 34px 28px 32px; position: relative; transition: background .5s var(--ease), border-color .5s; }
 .psteps li:hover { background: rgba(189, 181, 171, .07); border-color: var(--stone); }
-.psteps span { font-family: var(--display); font-style: italic; font-size: 44px; color: var(--stone); line-height: 1; display: block; margin-bottom: 40px; font-variation-settings: "opsz" 30; }
+.psteps span { font-family: var(--display); font-style: normal; font-size: 44px; color: var(--stone); line-height: 1; display: block; margin-bottom: 40px; font-variation-settings: "opsz" 30; }
 .psteps h3 { font-size: 26px; margin-bottom: 10px; }
 .psteps p { font-size: 15px; color: var(--soft); }
 
@@ -588,3 +588,170 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 .scroll-cue { left: auto; right: clamp(24px, 4.5vw, 64px); transform: none; }
+
+/* =========================================================
+   Typography: Montserrat headings, Google Sans text
+   ========================================================= */
+:root {
+  --display: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --sans: "Google Sans", "Segoe UI", system-ui, sans-serif;
+}
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.025em; line-height: 1.08; }
+em { font-weight: 700; }
+h2 { font-size: clamp(32px, 4.2vw, 56px); }
+
+.hero-video h1 { font-size: clamp(36px, min(5.7vw, 10vh), 92px); line-height: 1.04; letter-spacing: -0.035em; }
+.page-head h1 { font-size: clamp(36px, 5.6vw, 84px); }
+.cta h2 { font-size: clamp(34px, 5.4vw, 80px); }
+.brand-mark { font-size: 26px; font-weight: 800; letter-spacing: .16em; }
+.footer .brand-mark { font-size: 18px; }
+.curtain-mark span { font-size: 36px; font-weight: 800; letter-spacing: .24em; }
+
+.ticker span { font-size: 20px; font-weight: 600; font-style: normal; }
+.mq-track span { font-size: clamp(42px, 6.4vw, 96px); font-weight: 700; }
+.stat b { font-size: clamp(46px, 5vw, 72px); font-weight: 700; }
+.statement { font-size: clamp(24px, 2.8vw, 42px); font-weight: 600; line-height: 1.32; letter-spacing: -0.02em; }
+.rename .old { font-size: 18px; font-weight: 600; }
+.rename .new { font-size: 22px; font-weight: 700; }
+.c-card b { font-size: 40px; font-weight: 800; }
+.yr { font-size: 22px; font-weight: 600; }
+.step h3 { font-size: 23px; }
+.tile h3 { font-size: 26px; }
+.pcard h3 { font-size: 27px; }
+.prow h2 { font-size: clamp(32px, 3.6vw, 50px); }
+.num, .k, .chip, .apart .k { font-weight: 600; }
+.psteps span { font-size: 38px; font-weight: 600; }
+.psteps h3, .apart h3 { font-size: clamp(21px, 1.9vw, 25px); }
+.gtable td:first-child { font-size: 19px; font-weight: 600; }
+.faq-list summary { font-size: clamp(17px, 1.5vw, 20px); font-weight: 600; }
+.free { font-size: 19px; font-weight: 600; }
+.about p.big { font-size: clamp(19px, 1.8vw, 24px); font-weight: 600; }
+.lead, .hero-video .lead { font-weight: 400; }
+.btn { font-weight: 500; letter-spacing: .1em; }
+.eyebrow, .hero-meta, .brand-sub { font-weight: 500; }
+@media (max-width: 760px) {
+  .gtable td:first-child { font-size: 17px; }
+}
+
+/* Match the sample: upright bold Montserrat headlines, plain Google Sans text */
+body { font-size: 18px; line-height: 1.6; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; font-style: normal; letter-spacing: -0.02em; }
+em, i { font-style: normal; }
+em { font-weight: inherit; }
+.hero-video .ln.l2, .hero-video .ln.l3, .ln.l2, .ln.l3 { padding-left: 0; }
+.hero-video h1 { font-size: clamp(38px, min(6vw, 10.5vh), 96px); line-height: 1.06; letter-spacing: -0.025em; }
+.hero-video .lead { font-size: clamp(18px, 1.5vw, 22px); line-height: 1.5; max-width: 560px; }
+p, li, dd, td, summary + p { font-family: var(--sans); }
+.about-text, .head-sub, .cta-sub, .prow p, .step p, .pcard p, .apart p, .areas p, .faq-list details p { font-size: 18px; line-height: 1.6; }
+.mq-track span, .ticker span, .yr, .num, .chip, .k, .psteps span, .c-card b, .stat b { font-family: var(--display); font-style: normal; }
+
+/* =========================================================
+   Readability pass (all pages): 14px minimum for any text,
+   18px body copy, brighter secondary text, WCAG AA contrast
+   ========================================================= */
+:root { --text: rgba(243, 240, 235, .9); --soft: rgba(243, 240, 235, .8); }
+.stone { --text: rgba(11, 11, 11, .9); --soft: rgba(11, 11, 11, .82); }
+
+/* body copy */
+body { font-size: 18px; line-height: 1.65; }
+p, li, dd, td { line-height: 1.65; }
+.lead, .hero-video .lead { font-size: clamp(18px, 1.5vw, 21px); color: rgba(243, 240, 235, .92); }
+.about-text, .head-sub, .cta-sub, .prow p, .step p, .pcard p, .apart p, .areas p,
+.faq-list details p, .psteps p, .gtable td, .details dd, .tile p { font-size: 18px; }
+.tile p { font-size: 16px; }
+
+/* labels: larger, calmer tracking */
+.eyebrow { font-size: 14px; letter-spacing: .14em; font-weight: 600; }
+.hero-meta { font-size: 14px; letter-spacing: .1em; font-weight: 500; color: rgba(243, 240, 235, .85); }
+.hero-meta span + span::before { margin: 0 14px; }
+.scroll-cue { font-size: 12px; letter-spacing: .2em; }
+.stat > span { font-size: 14px; letter-spacing: .08em; font-weight: 600; opacity: 1; }
+.prow h4, .sub h4, .areas h4 { font-size: 14px; letter-spacing: .1em; }
+.gtable th { font-size: 14px; letter-spacing: .1em; }
+.details dt { font-size: 14px; letter-spacing: .1em; width: 110px; }
+.form label { font-size: 14px; letter-spacing: .08em; }
+.form input, .form textarea { font-size: 18px; }
+.jump a { font-size: 15px; }
+.tags li { font-size: 15px; }
+.more { font-size: 15px; letter-spacing: .08em; }
+.btn { font-size: 15px; letter-spacing: .06em; }
+.c-tag { font-size: 14px; letter-spacing: .06em; }
+.c-card span { font-size: 15px; color: rgba(243, 240, 235, .88); }
+.fine, .guide-note { font-size: 15px; }
+.brand-sub { font-size: 11px; letter-spacing: .2em; opacity: .85; }
+.faq-list summary { font-size: clamp(18px, 1.6vw, 21px); }
+.faq-note, .cta-phone { font-size: 17px; }
+
+/* footer */
+.footer nav a { font-size: 15px; }
+.footer .small { font-size: 14px; color: var(--stone); }
+
+/* contrast fixes */
+.rename .old { color: rgba(11, 11, 11, .72); }
+.s-concrete, .p-concrete { background: linear-gradient(rgba(11, 11, 11, .38), rgba(11, 11, 11, .38)), var(--concrete); }
+.pcard p, .stat > span { opacity: 1; }
+.pcard p { color: inherit; }
+.p-stone p, .p-stone .k { color: rgba(11, 11, 11, .88); }
+.mq.rev .mq-track span { color: var(--stone); -webkit-text-stroke: 0; opacity: .85; }
+.gtable td:last-child { color: rgba(11, 11, 11, .9); }
+
+@media (max-width: 760px) {
+  body { font-size: 17px; }
+  .about-text, .head-sub, .cta-sub, .prow p, .step p, .pcard p, .apart p, .areas p, .faq-list details p, .psteps p, .gtable td { font-size: 17px; }
+  .hero-meta { font-size: 13px; letter-spacing: .06em; }
+}
+
+/* stat cards: hover lift on `translate` so it never fights the scroll animation's transform */
+.stat { transition: translate .6s var(--ease), box-shadow .6s var(--ease); }
+.stat:hover { transform: none; translate: 0 -8px; }
+
+/* heading scale tuned for bold Montserrat (heavier than the old serif) */
+.hero-video h1 { font-size: clamp(32px, min(4.3vw, 8vh), 66px); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: clamp(16px, 2.6vh, 26px); }
+h2 { font-size: clamp(28px, 3.3vw, 46px); }
+.page-head h1 { font-size: clamp(32px, 4.4vw, 62px); }
+.cta h2 { font-size: clamp(30px, 4vw, 58px); }
+.prow h2 { font-size: clamp(28px, 3vw, 42px); }
+.statement { font-size: clamp(22px, 2.3vw, 34px); }
+.mq-track span { font-size: clamp(36px, 5vw, 76px); }
+
+/* =========================================================
+   Satin stone: a polished, metallic finish built only from
+   shades of the brand Stone, with a slow sweep of light
+   ========================================================= */
+:root {
+  --stone-satin:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .045) 0 1px, rgba(0, 0, 0, 0) 1px 3px),
+    radial-gradient(120% 90% at 18% 0%, rgba(255, 255, 255, .42), rgba(255, 255, 255, 0) 55%),
+    radial-gradient(90% 80% at 100% 100%, rgba(120, 112, 102, .28), rgba(0, 0, 0, 0) 60%),
+    linear-gradient(135deg, #aaa298 0%, #d9d3ca 26%, #bdb5ab 48%, #e3ded6 70%, #b0a89e 100%);
+}
+
+.stone { background: var(--stone-satin); position: relative; overflow: hidden; isolation: isolate; }
+.stone > * { position: relative; z-index: 1; }
+.stone::before {
+  content: ""; position: absolute; top: -10%; bottom: -10%; left: -45%; width: 38%; z-index: 0; pointer-events: none;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .5) 48%, rgba(255, 252, 246, .62) 52%, rgba(255, 255, 255, 0) 100%);
+  filter: blur(6px); transform: skewX(-14deg) translateX(0); animation: stone-sheen 11s cubic-bezier(.45, 0, .25, 1) infinite;
+}
+@keyframes stone-sheen { 0% { transform: skewX(-14deg) translateX(0); } 55%, 100% { transform: skewX(-14deg) translateX(460%); } }
+
+/* smaller stone surfaces get the same satin, with a sheen on hover */
+.p-stone, .c-stone { background: var(--stone-satin); position: relative; overflow: hidden; }
+.p-stone::after, .c-stone::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, .55) 50%, rgba(255, 255, 255, 0) 70%);
+  background-size: 250% 100%; background-position: 150% 0; transition: background-position 1.1s var(--ease);
+}
+.p-stone:hover::after, .tile:hover .c-stone::after { background-position: -50% 0; }
+.p-stone > * { position: relative; z-index: 1; }
+
+/* button and chip hover fills use the satin too */
+.btn-primary { --fill: linear-gradient(135deg, #b3aba1 0%, #e3ded6 45%, #c4bcb2 70%, #ebe7e0 100%); }
+.jump a:hover, .menu-cta:hover { background: linear-gradient(135deg, #b3aba1 0%, #e3ded6 45%, #c4bcb2 70%, #ebe7e0 100%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .stone::before { animation: none; display: none; }
+}
+
+/* About collage: looping TMT clip fills its frame like the image did */
+.collage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
