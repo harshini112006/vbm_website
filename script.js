@@ -410,7 +410,7 @@
     });
   });
 
-  // About: Leon Steels is struck through, the arrow draws, the new name rises
+  // About: the rename animation (now replaced by a static category strip; kept for safety if markup returns)
   $$('[data-rename]').forEach((r) => {
     const tl = gsap.timeline({ scrollTrigger: { trigger: r, start: 'top 85%' } });
     tl.from(r.querySelector('.old'), { opacity: 0, x: -20, duration: 0.6, ease: 'power3.out' })

@@ -1104,3 +1104,21 @@ h2 { font-size: clamp(28px, 3.3vw, 46px); }
 
 /* keep the pour in frame when a square photo fills the tall slot */
 .plx-img.multi .s1 img { object-position: 60% 50%; }
+
+/* About: category strip (replaces the old rename line) */
+.about-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 0; margin-top: 30px; }
+.about-kicker span { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; color: var(--charcoal); opacity: .85; }
+.about-kicker span + span::before { content: ""; display: inline-block; width: 5px; height: 5px; margin: 0 16px; background: var(--crimson); transform: rotate(45deg); vertical-align: middle; }
+
+/* About kicker: "Trusted by" lead-in */
+.about-kicker em { font-style: normal; font-weight: 700; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--crimson); margin-right: 18px; }
+
+/* About kicker: tidy spacing above and below */
+.about-kicker { margin: 28px 0 8px; }
+
+/* About kicker: tighter so "Trusted by Builders Contractors Architects" stays one line */
+.about-kicker { gap: 0; flex-wrap: nowrap; white-space: nowrap; }
+.about-kicker span { letter-spacing: .14em; }
+.about-kicker em { margin-right: 13px; letter-spacing: .14em; }
+.about-kicker span + span::before { margin: 0 11px; }
+@media (max-width: 1020px) { .about-kicker { flex-wrap: wrap; white-space: normal; } }
