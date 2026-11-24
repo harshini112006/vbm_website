@@ -419,20 +419,48 @@
       .from(splitWords(r.querySelector('.new')), { yPercent: 110, duration: 0.9, ease: 'power4.out', stagger: 0.08 }, '-=0.3');
   });
 
-  // About: the statement lights up word by word as it scrolls past
+  // About: "switching typography" — each word's letters rapidly switch through
+  // glyphs then lock into the real text, rolling across the sentence in reading order
+  const SCR = 'abcdefghijklmnopqrstuvwxyz0123456789';
   $$('[data-highlight]').forEach((p) => {
     const marks = $$('mark', p);
-    const words = splitWords(p).map((w) => w.parentNode);
     const range = { trigger: p, start: 'top 85%', end: 'bottom 50%', scrub: 0.6 };
-    // each word rises, sharpens and brightens in reading order
-    gsap.fromTo(words, { opacity: 0.35, yPercent: 30, filter: 'blur(1.2px)' }, {
-      opacity: 1, yPercent: 0, filter: 'blur(0px)', ease: 'power1.out', stagger: 0.1, scrollTrigger: range,
-    });
-    // key phrases draw a crimson underline as the reading reaches them
-    marks.forEach((m) => {
+    const words = splitWords(p);                 // inner spans, each inside an inline-block .w
+    p.setAttribute('aria-label', p.textContent.replace(/\s+/g, ' ').trim());
+    words.forEach((sp) => sp.parentNode.setAttribute('aria-hidden', 'true'));
+    const finals = words.map((sp) => sp.textContent);
+
+    const run = () => {
+      // lock each word's box to its final width so the switching glyphs never reflow the text
+      words.forEach((sp) => { const w = sp.parentNode; w.style.width = w.offsetWidth + 'px'; });
+      if (reduce) return;
+      words.forEach((sp) => (sp.parentNode.style.opacity = '0'));
+      const t0 = performance.now(), per = 55, dur = 480;
+      const loop = (now) => {
+        const t = now - t0; let done = true;
+        words.forEach((sp, i) => {
+          const start = i * per;
+          if (t < start) { done = false; return; }
+          sp.parentNode.style.opacity = '1';
+          if (t < start + dur) {
+            done = false;
+            sp.textContent = finals[i].replace(/\S/g, () => SCR[(Math.random() * SCR.length) | 0]);
+          } else if (sp.textContent !== finals[i]) {
+            sp.textContent = finals[i];
+          }
+        });
+        if (done) words.forEach((sp, i) => (sp.textContent = finals[i]));
+        else requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    };
+    ScrollTrigger.create({ trigger: p, start: 'top 78%', once: true, onEnter: run });
+
+    // key phrases draw their crimson underline once the switching has settled
+    marks.forEach((m, i) => {
       gsap.fromTo(m, { backgroundSize: '0% .09em' }, {
-        backgroundSize: '100% .09em', ease: 'none',
-        scrollTrigger: { trigger: m, start: 'top 64%', end: 'top 50%', scrub: 0.6 },
+        backgroundSize: '100% .09em', duration: 0.55, ease: 'power2.out', delay: 1.3 + i * 0.2,
+        scrollTrigger: { trigger: p, start: 'top 78%', once: true },
       });
     });
     const story = p.closest('.story');
