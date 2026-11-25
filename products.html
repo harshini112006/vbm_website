@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 <script>try{if(!sessionStorage.getItem("vbm-intro")){document.documentElement.classList.add("intro");sessionStorage.setItem("vbm-intro","1")}}catch(e){}</script>
-<link rel="stylesheet" href="styles.css?v=69">
+<link rel="stylesheet" href="styles.css?v=80">
 </head>
 <body class="top-dark">
 
@@ -36,7 +36,8 @@
 
 <main id="top">
 
-  <section class="page-head p-steel-bg">
+  <section class="page-head p-steel-bg has-sky">
+    <div class="sky" aria-hidden="true"><img src="assets/img/skyline.png" alt=""></div>
     <div class="wrap">
       <p class="eyebrow center">The Collection</p>
       <h1 class="reveal d1">Everything your build <em>needs</em></h1>
@@ -58,91 +59,127 @@
     <div class="wrap">
 
       <article class="prow" id="cement">
-        <figure ><img src="assets/img/cement.jpg" alt="Cement bags" loading="lazy"></figure>
-        <div class="reveal d1">
+        <figure class="cement-fx cement-vid" aria-label="Cement">
+          <video src="assets/video/cement-loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <span class="cf-chip k1">Fresh stock</span>
+          <span class="cf-chip k2">4 leading brands</span>
+          <span class="cf-chip k3">Quick delivery</span>
+        </figure>
+        <div class="reveal d1 tmt-panel">
           <span class="num">I</span>
           <h2>Cement</h2>
           <p>Fresh stock from four leading brands for foundations, columns, slabs and finishing.</p>
-          <h4>Brands</h4>
-          <ul class="tags"><li>UltraTech</li><li>Dalmia</li><li>Ramco</li><li>Chettinad</li></ul>
+          <div class="tp-block"><h4>Brands</h4><ul class="tp-brands"><li>UltraTech</li><li>Dalmia</li><li>Ramco</li><li>Chettinad</li></ul></div>
           <a href="contact.html" class="more">Request a quote</a>
         </div>
       </article>
 
       <article class="prow rev" id="tmt">
-        <figure ><img src="assets/img/tmt.jpg" alt="TMT steel bars" loading="lazy"></figure>
-        <div class="reveal d1">
+        <figure class="tmt-vid" aria-label="TMT bars being tied on site">
+          <video src="assets/video/tmt-loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <span class="cf-chip k1">Trusted mills</span>
+          <span class="cf-chip k3">Accurate weighing</span>
+        </figure>
+        <div class="reveal d1 tmt-panel">
           <span class="num">II</span>
           <h2>TMT Bars</h2>
           <p>High-strength reinforcement bars from trusted mills, with accurate weighing and no hidden charges.</p>
-          <h4>Brands</h4>
-          <ul class="tags"><li>TATA Tiscon</li><li>ARS</li><li>Isteel</li><li>JR</li><li>MCR</li><li>Sri Durga</li></ul>
-          <h4>Section weights</h4>
-          <ul class="tags"><li>8 mm</li><li>10 mm</li><li>12 mm</li><li>16 mm</li><li>20 mm</li><li>25 mm</li></ul>
-          <a href="contact.html" class="more">Request a quote</a>
+          <div class="tp-block">
+            <h4>Brands</h4>
+            <ul class="tp-brands"><li>TATA Tiscon</li><li>ARS</li><li>Isteel</li><li>JR</li><li>MCR</li><li>Sri Durga</li></ul>
+          </div>
+          <div class="tp-block">
+            <h4>Choose a size</h4>
+            <div class="tp-sizes" role="tablist" aria-label="Bar diameter">
+              <button type="button" role="tab" data-mm="8">8 mm</button>
+              <button type="button" role="tab" data-mm="10">10 mm</button>
+              <button type="button" role="tab" data-mm="12" class="on" aria-selected="true">12 mm</button>
+              <button type="button" role="tab" data-mm="16">16 mm</button>
+              <button type="button" role="tab" data-mm="20">20 mm</button>
+              <button type="button" role="tab" data-mm="25">25 mm</button>
+            </div>
+            <div class="tp-view">
+              <div class="tp-bar" aria-hidden="true"><i class="tp-ring"></i><i class="tp-core"></i></div>
+              <div class="tp-read"><b id="tpMm">12</b><span>mm TMT bar</span></div>
+              <a id="tpAsk" href="contact.html" class="tp-ask">Ask for 12 mm</a>
+            </div>
+          </div>
         </div>
       </article>
 
       <article class="prow" id="aggregates">
-        <figure ><img src="assets/img/aggregates.jpg" alt="Blue metal and sand" loading="lazy"></figure>
-        <div class="reveal d1">
+        <figure class="tmt-vid agg-vid" aria-label="Blue metal and sand on site">
+          <video src="assets/video/aggregates-loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <span class="cf-chip k1">Graded aggregates</span>
+          <span class="cf-chip k3">Delivered by the load</span>
+        </figure>
+        <div class="reveal d1 tmt-panel">
           <span class="num">III</span>
           <h2>Blue Metal &amp; Sand</h2>
           <p>Graded aggregates and sand for concrete, plastering and filling, delivered by the load.</p>
-          <h4>Range</h4>
-          <ul class="tags"><li>M-Sand</li><li>P-Sand</li><li>¾″ Jelly</li><li>1½″ Jelly</li><li>Filling Sand</li><li>Chips</li></ul>
+          <div class="tp-block"><h4>Range</h4><ul class="tp-brands"><li>M-Sand</li><li>P-Sand</li><li>¾″ Jelly</li><li>1½″ Jelly</li><li>Filling Sand</li><li>Chips</li></ul></div>
           <a href="contact.html" class="more">Request a quote</a>
         </div>
       </article>
 
       <article class="prow rev" id="blocks">
-        <figure ><img src="assets/img/blocks.jpg" alt="AAC and cement blocks" loading="lazy"></figure>
-        <div class="reveal d1">
+        <figure class="tmt-vid blk-vid" aria-label="Bricklaying on site">
+          <video src="assets/video/blocks-loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <span class="cf-chip k1">Cement &amp; AAC blocks</span>
+          <span class="cf-chip k3">Wire cut red brick</span>
+        </figure>
+        <div class="reveal d1 tmt-panel">
           <span class="num">IV</span>
           <h2>Bricks &amp; Blocks</h2>
           <p>Walling materials for every build, from solid cement blocks to light AAC blocks and wire cut bricks.</p>
-          <h4>Cement blocks</h4>
-          <ul class="tags"><li>8″×8″×18″</li><li>6″×8″×18″</li><li>4″×8″×18″</li></ul>
-          <h4>AAC blocks · Renecon, Ekocon, JJM</h4>
-          <ul class="tags"><li>9″×8″×24″</li><li>8″×8″×24″</li><li>6″×8″×24″</li><li>4″×8″×24″</li></ul>
-          <h4>Wire cut red brick</h4>
-          <ul class="tags"><li>Premium Quality</li><li>Standard Quality</li></ul>
+          <div class="tp-block"><h4>Cement blocks</h4><ul class="tp-brands"><li>8″×8″×18″</li><li>6″×8″×18″</li><li>4″×8″×18″</li></ul></div>
+          <div class="tp-block"><h4>AAC blocks · Renecon, Ekocon, JJM</h4><ul class="tp-brands"><li>9″×8″×24″</li><li>8″×8″×24″</li><li>6″×8″×24″</li><li>4″×8″×24″</li></ul></div>
+          <div class="tp-block"><h4>Wire cut red brick</h4><ul class="tp-brands"><li>Premium Quality</li><li>Standard Quality</li></ul></div>
           <a href="contact.html" class="more">Request a quote</a>
         </div>
       </article>
 
       <article class="prow" id="tiles">
-        <figure ><img src="assets/img/tiles.jpg" alt="Tiles" loading="lazy"></figure>
-        <div class="reveal d1">
+        <figure class="tmt-vid tile-vid" aria-label="Large tiles being laid on site">
+          <video src="assets/video/tiles-loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <span class="cf-chip k1">KAG tiles</span>
+          <span class="cf-chip k3">Floor to elevation</span>
+        </figure>
+        <div class="reveal d1 tmt-panel">
           <span class="num">V</span>
           <h2>Tiles</h2>
           <p>KAG tiles chosen for the room they are meant for, from kitchens and bathrooms to parking and elevations.</p>
-          <h4>KAG tile</h4>
-          <ul class="tags"><li>Flooring</li><li>Bathroom</li><li>Kitchen</li><li>Staircase</li><li>Elevation</li><li>Parking</li><li>Cooling</li></ul>
+          <div class="tp-block"><h4>KAG tile</h4><ul class="tp-brands"><li>Flooring</li><li>Bathroom</li><li>Kitchen</li><li>Staircase</li><li>Elevation</li><li>Parking</li><li>Cooling</li></ul></div>
           <a href="contact.html" class="more">Request a quote</a>
         </div>
       </article>
 
       <article class="prow rev" id="sanitary">
-        <figure ><img src="assets/img/sanitary.jpg" alt="Sanitary ware" loading="lazy"></figure>
-        <div class="reveal d1">
+        <figure class="tmt-vid san-vid" aria-label="Sanitary ware showcase">
+          <video src="assets/video/sanitary-loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <span class="cf-chip k1">Taps &amp; basins</span>
+          <span class="cf-chip k3">Closets &amp; showers</span>
+        </figure>
+        <div class="reveal d1 tmt-panel">
           <span class="num">VI</span>
           <h2>Sanitary Ware</h2>
           <p>Everything for the bathroom, from closets and washbasins to mixers, showers and taps.</p>
-          <h4>Range</h4>
-          <ul class="tags"><li>Closets</li><li>Washbasins</li><li>Tabletops</li><li>Wall Mixers</li><li>Showers</li><li>Taps</li><li>Mirrors</li><li>Pipes</li></ul>
+          <div class="tp-block"><h4>Range</h4><ul class="tp-brands"><li>Closets</li><li>Washbasins</li><li>Tabletops</li><li>Wall Mixers</li><li>Showers</li><li>Taps</li><li>Mirrors</li><li>Pipes</li></ul></div>
           <a href="contact.html" class="more">Request a quote</a>
         </div>
       </article>
 
       <article class="prow" id="doors">
-        <figure ><img src="assets/img/doors.jpg" alt="Wooden door" loading="lazy"></figure>
-        <div class="reveal d1">
+        <figure class="tmt-vid door-vid" aria-label="Interior doors showcase">
+          <video src="assets/video/doors-loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <span class="cf-chip k1">Wooden &amp; UPVC</span>
+          <span class="cf-chip k3">Interior doors</span>
+        </figure>
+        <div class="reveal d1 tmt-panel">
           <span class="num">VII</span>
           <h2>Doors &amp; Windows</h2>
           <p>Doors, windows and interior fittings that finish a build, in timber and modern PVC options.</p>
-          <h4>Range</h4>
-          <ul class="tags"><li>Wooden</li><li>PVC / UPVC / WPVC</li><li>Kitchen Interior</li><li>Hall Interior</li><li>Wardrobes</li><li>Furniture</li></ul>
+          <div class="tp-block"><h4>Range</h4><ul class="tp-brands"><li>Wooden</li><li>PVC / UPVC / WPVC</li><li>Kitchen Interior</li><li>Hall Interior</li><li>Wardrobes</li><li>Furniture</li></ul></div>
           <a href="contact.html" class="more">Request a quote</a>
         </div>
       </article>
@@ -266,6 +303,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
-<script src="script.js?v=69"></script>
+<script src="script.js?v=80"></script>
 </body>
 </html>

@@ -561,6 +561,18 @@
     });
   }
 
+  // TMT size picker
+  if ($$('.tp-sizes').length) {
+    const core = document.querySelector('.tp-core'), out = document.querySelector('#tpMm'), ask = document.querySelector('#tpAsk');
+    $$('.tp-sizes button').forEach((b) => b.addEventListener('click', () => {
+      $$('.tp-sizes button').forEach((x) => { x.classList.remove('on'); x.removeAttribute('aria-selected'); });
+      b.classList.add('on'); b.setAttribute('aria-selected', 'true');
+      core.style.setProperty('--d', b.dataset.mm);
+      out.textContent = b.dataset.mm;
+      ask.textContent = 'Ask for ' + b.dataset.mm + ' mm';
+    }));
+  }
+
   // founder reveal
   if ($$('.f-photo').length) {
     gsap.from('.f-frame', { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'power4.out', scrollTrigger: { trigger: '.f-photo', start: 'top 80%' } });
