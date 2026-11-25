@@ -600,6 +600,11 @@
     document.addEventListener('click', () => { if (!v.paused && v.muted) { v.muted = false; snd.setAttribute('aria-pressed', 'false'); } }, { once: true });
   })();
 
+  // home brands: logos fade in once, then stay still
+  if ($$('.bgrid').length) {
+    gsap.from('.bgrid .bcard', { opacity: 0, duration: 0.9, ease: 'power2.out', stagger: 0.07, scrollTrigger: { trigger: '.bgrid', start: 'top 85%' } });
+  }
+
   // founder reveal
   if ($$('.f-photo').length) {
     gsap.from('.f-frame', { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'power4.out', scrollTrigger: { trigger: '.f-photo', start: 'top 80%' } });
