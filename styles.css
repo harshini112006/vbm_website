@@ -1399,3 +1399,19 @@ h2 { font-size: clamp(28px, 3.3vw, 46px); }
 .brands-steel .bl-blob.b1 { background: #3f7fb5; opacity: .35; }
 .brands-steel .bl-blob.b2 { background: #5a0610; opacity: .55; }
 .brands-steel .bcard { box-shadow: 0 14px 34px rgba(0,0,0,.35); }
+
+/* ---- phone fixes ---- */
+@media (max-width: 560px) {
+  .pcards { grid-template-columns: 1fr; gap: 14px; }
+  .pcards .pcard:last-child { grid-column: auto; }
+  .pcards .pcard.pv { min-height: 0; padding-top: 170px; }
+  .pcards .pcard.pv p { font-size: 17px; }
+  .f-bubble::before { display: none; }
+  .f-bubble { padding: 30px 22px 24px; border-radius: 22px; }
+  .f-msg { font-size: 17px; }
+  .page-head.has-sky { padding-bottom: 250px; }
+  .sky img { min-width: 640px; }
+}
+
+.details .mails a { display: block; }
+.details .mails a + a { margin-top: 6px; }
