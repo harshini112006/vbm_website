@@ -114,129 +114,7 @@
     });
   }
 
-  /* ---- Our Story: a rebar-mesh grid with light beams running along the bars ---- */
-  $$('.story-bg').forEach((bg) => {
-    const canvas = document.createElement('canvas');
-    canvas.className = 'story-grid';
-    canvas.setAttribute('aria-hidden', 'true');
-    bg.prepend(canvas);
-    const ctx = canvas.getContext('2d');
-    const GAP = 56;
-    const COLORS = ['90,6,16', '90,6,16', '19,39,58'];
-    let W = 0, H = 0, ox = 0, oy = 0, cols = 0, rows = 0, beams = [], running = false, raf = 0;
-    const pointer = { x: -9999, y: -9999 };
-    const flashes = new Map();   // joint key -> brightness
-
-    const newBeam = (fresh) => {
-      const horiz = Math.random() < 0.5;
-      const lane = horiz ? Math.round(Math.random() * rows) : Math.round(Math.random() * cols);
-      const span = horiz ? W : H;
-      const dir = Math.random() < 0.5 ? 1 : -1;
-      const len = 90 + Math.random() * 150;
-      return {
-        horiz, dir, len,
-        pos: horiz ? oy + lane * GAP : ox + lane * GAP,
-        head: fresh ? Math.random() * span : (dir > 0 ? -len : span + len),
-        speed: 1.4 + Math.random() * 1.8,
-        c: COLORS[(Math.random() * COLORS.length) | 0],
-      };
-    };
-
-    const resize = () => {
-      const box = bg.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = box.width; H = box.height;
-      canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cols = Math.floor(W / GAP); rows = Math.floor(H / GAP);
-      ox = (W - cols * GAP) / 2; oy = (H - rows * GAP) / 2;
-      const count = W < 768 ? 6 : 11;
-      beams = Array.from({ length: count }, () => newBeam(true));
-    };
-
-    const drawGrid = () => {
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = 'rgba(11,11,11,0.075)';
-      ctx.beginPath();
-      for (let i = 0; i <= cols; i++) { const x = ox + i * GAP + 0.5; ctx.moveTo(x, 0); ctx.lineTo(x, H); }
-      for (let j = 0; j <= rows; j++) { const y = oy + j * GAP + 0.5; ctx.moveTo(0, y); ctx.lineTo(W, y); }
-      ctx.stroke();
-      // tie-wire knots at each joint, like a rebar mesh
-      ctx.fillStyle = 'rgba(11,11,11,0.16)';
-      for (let i = 0; i <= cols; i++) for (let j = 0; j <= rows; j++) ctx.fillRect(ox + i * GAP - 1, oy + j * GAP - 1, 2.5, 2.5);
-    };
-
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
-      drawGrid();
-      // soft crimson glow on the mesh around the cursor
-      if (pointer.x > -999) {
-        const g = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 170);
-        g.addColorStop(0, 'rgba(90,6,16,0.10)');
-        g.addColorStop(1, 'rgba(90,6,16,0)');
-        ctx.fillStyle = g;
-        ctx.fillRect(pointer.x - 170, pointer.y - 170, 340, 340);
-      }
-      for (const b of beams) {
-        const tail = b.head - b.dir * b.len;
-        const [x1, y1, x2, y2] = b.horiz ? [tail, b.pos, b.head, b.pos] : [b.pos, tail, b.pos, b.head];
-        const grad = ctx.createLinearGradient(x1, y1, x2, y2);
-        grad.addColorStop(0, `rgba(${b.c},0)`);
-        grad.addColorStop(1, `rgba(${b.c},0.85)`);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.moveTo(x1 + 0.5, y1 + 0.5); ctx.lineTo(x2 + 0.5, y2 + 0.5); ctx.stroke();
-        ctx.fillStyle = `rgba(${b.c},0.95)`;
-        ctx.beginPath(); ctx.arc(x2 + 0.5, y2 + 0.5, 2.6, 0, Math.PI * 2); ctx.fill();
-      }
-      // joints flare briefly when a beam passes through them
-      for (const [key, a] of flashes) {
-        const [x, y, c] = key.split('|');
-        ctx.strokeStyle = `rgba(${c},${a * 0.7})`;
-        ctx.lineWidth = 1.2;
-        ctx.beginPath(); ctx.arc(+x + 0.5, +y + 0.5, 4 + (1 - a) * 9, 0, Math.PI * 2); ctx.stroke();
-      }
-    };
-
-    const step = () => {
-      for (let k = 0; k < beams.length; k++) {
-        const b = beams[k];
-        const before = b.head;
-        b.head += b.dir * b.speed;
-        const origin = b.horiz ? ox : oy;
-        // did the head cross a joint this frame?
-        const cellA = Math.floor((before - origin) / GAP), cellB = Math.floor((b.head - origin) / GAP);
-        if (cellA !== cellB) {
-          const at = origin + Math.max(cellA, cellB) * GAP;
-          const key = b.horiz ? `${at}|${b.pos}|${b.c}` : `${b.pos}|${at}|${b.c}`;
-          flashes.set(key, 1);
-        }
-        const span = b.horiz ? W : H;
-        if ((b.dir > 0 && b.head - b.len > span) || (b.dir < 0 && b.head + b.len < 0)) beams[k] = newBeam(false);
-      }
-      for (const [key, a] of flashes) { if (a <= 0.04) flashes.delete(key); else flashes.set(key, a * 0.94); }
-      draw();
-      if (running) raf = requestAnimationFrame(step);
-    };
-    const play = () => { if (!running && !reduce) { running = true; raf = requestAnimationFrame(step); } };
-    const pause = () => { running = false; cancelAnimationFrame(raf); };
-
-    resize();
-    draw();
-    window.addEventListener('resize', () => { resize(); draw(); });
-    const story = bg.closest('.story') || bg;
-    story.addEventListener('pointermove', (e) => {
-      const r = bg.getBoundingClientRect();
-      pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top;
-    });
-    story.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver((es) => es.forEach((e) => (e.isIntersecting ? play() : pause()))).observe(bg);
-    } else {
-      play();
-    }
-  });
+  /* ---- Our Story: backdrop is a CSS kinetic-type wall; no canvas ---- */
 
   /* ---- products at a glance: the active name lights up, its image and brands show ---- */
   const plxItems = $$('.plx-item');
@@ -465,7 +343,6 @@
     });
     const story = p.closest('.story');
     if (story) {
-      gsap.fromTo(story.querySelector('.story-rail i'), { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: range });
       gsap.from(story.querySelector('.story-sign'), {
         y: 24, opacity: 0, duration: 1, ease: 'power3.out',
         scrollTrigger: { trigger: story.querySelector('.story-sign'), start: 'top 92%' },
@@ -684,10 +561,17 @@
     });
   }
 
+  // founder reveal
+  if ($$('.f-photo').length) {
+    gsap.from('.f-frame', { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'power4.out', scrollTrigger: { trigger: '.f-photo', start: 'top 80%' } });
+    gsap.from('.f-chip', { scale: 0, opacity: 0, duration: 0.7, ease: 'back.out(2)', stagger: 0.25, delay: 0.8, scrollTrigger: { trigger: '.f-photo', start: 'top 80%' } });
+    gsap.from('.f-msg', { y: 24, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.35, scrollTrigger: { trigger: '.f-bubble', start: 'top 80%' } });
+  }
+
   // principle cards fan in
   if ($$('.pcards').length) {
     gsap.from('.pcard', {
-      y: 140, rotate: (i) => (i % 2 ? 5 : -5), opacity: 0, duration: 1.2, ease: 'power3.out', stagger: 0.12,
+      y: 60, rotate: (i) => (i % 2 ? 3 : -3), opacity: 0, duration: 1.2, ease: 'power3.out', stagger: 0.12,
       scrollTrigger: { trigger: '.pcards', start: 'top 85%' },
     });
   }
