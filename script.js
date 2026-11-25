@@ -573,6 +573,33 @@
     }));
   }
 
+  // guide video: custom play / sound controls
+  (() => {
+    const box = document.querySelector('.gv'); if (!box) return;
+    const v = box.querySelector('video'), play = box.querySelector('.gv-play'), snd = box.querySelector('.gv-snd');
+    const sync = () => box.classList.toggle('playing', !v.paused);
+    const toggle = () => { if (v.paused) { v.muted = false; v.play().catch(() => { v.muted = true; v.play(); }); } else v.pause(); };
+    play.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
+    v.addEventListener('click', toggle);
+    v.addEventListener('play', sync); v.addEventListener('pause', sync);
+    snd.addEventListener('click', (e) => { e.stopPropagation(); v.muted = !v.muted; snd.setAttribute('aria-pressed', String(v.muted)); });
+    // autoplay when in view: try with sound, fall back to muted (browsers block unmuted autoplay)
+    const start = () => {
+      v.muted = false;
+      v.play().then(() => snd.setAttribute('aria-pressed', 'false')).catch(() => {
+        v.muted = true; snd.setAttribute('aria-pressed', 'true'); v.play().catch(() => {});
+      });
+    };
+    let userPaused = false;
+    v.addEventListener('pause', () => { if (box.dataset.vis === '1') userPaused = true; });
+    if ('IntersectionObserver' in window) new IntersectionObserver((es) => es.forEach((en) => {
+      if (en.isIntersecting) { box.dataset.vis = '1'; if (v.paused && !userPaused) start(); }
+      else { box.dataset.vis = '0'; if (!v.paused) { v.pause(); userPaused = false; } }
+    }), { threshold: 0.35 }).observe(box); else start();
+    // first click anywhere switches the sound on if it started muted
+    document.addEventListener('click', () => { if (!v.paused && v.muted) { v.muted = false; snd.setAttribute('aria-pressed', 'false'); } }, { once: true });
+  })();
+
   // founder reveal
   if ($$('.f-photo').length) {
     gsap.from('.f-frame', { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'power4.out', scrollTrigger: { trigger: '.f-photo', start: 'top 80%' } });
