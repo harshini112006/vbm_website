@@ -579,6 +579,9 @@
     const v = box.querySelector('video'), play = box.querySelector('.gv-play'), snd = box.querySelector('.gv-snd');
     const sync = () => box.classList.toggle('playing', !v.paused);
     const toggle = () => { if (v.paused) { v.muted = false; v.play().catch(() => { v.muted = true; v.play(); }); } else v.pause(); };
+    // the clip's picture is framed by a black border that gets thinner after ~23s; zoom to match
+    const fit = () => box.style.setProperty('--zs', v.currentTime >= 23.1 ? '1.465' : '1.69');
+    v.addEventListener('timeupdate', fit); v.addEventListener('seeked', fit);
     play.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
     v.addEventListener('click', toggle);
     v.addEventListener('play', sync); v.addEventListener('pause', sync);
@@ -604,6 +607,14 @@
   if ($$('.bgrid').length) {
     gsap.from('.bgrid .bcard', { opacity: 0, duration: 0.9, ease: 'power2.out', stagger: 0.07, scrollTrigger: { trigger: '.bgrid', start: 'top 85%' } });
   }
+
+  // ordering stepper: draw the line and light the steps when it scrolls into view
+  (() => {
+    const w = document.getElementById('ordWrap'); if (!w) return;
+    if (!('IntersectionObserver' in window)) { w.classList.add('in'); return; }
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { w.classList.add('in'); io.disconnect(); } }), { threshold: 0.25 });
+    io.observe(w);
+  })();
 
   // founder reveal
   if ($$('.f-photo').length) {
